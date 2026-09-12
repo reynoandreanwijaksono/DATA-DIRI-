@@ -1,0 +1,10 @@
+.git
+.env
+.env.*
+tests
+cloudflared*
+infinityfree_deploy
+ngrok*
+start-online.bat
+*.zip
+*.exe
