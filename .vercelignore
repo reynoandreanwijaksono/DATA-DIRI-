@@ -8,3 +8,4 @@ ngrok*
 start-online.bat
 *.zip
 *.exe
+public/index.php
