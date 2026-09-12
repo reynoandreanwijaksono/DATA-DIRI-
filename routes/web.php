@@ -32,11 +32,16 @@ Route::get('/migrate-db-init', function () {
             'migrate_output' => $migrate,
             'seed_output' => $seed,
         ]);
-    } catch (Throwable $e) {
+    } catch (\Throwable $e) {
         return response()->json([
             'status' => 'error',
             'error' => $e->getMessage(),
-            'trace' => $e->getTraceAsString(),
+            'db_host' => config('database.connections.mysql.host'),
+            'db_port' => config('database.connections.mysql.port'),
+            'db_database' => config('database.connections.mysql.database'),
+            'db_username' => config('database.connections.mysql.username'),
+            'db_password_len' => strlen(config('database.connections.mysql.password') ?? ''),
+            'db_password_preview' => substr(config('database.connections.mysql.password') ?? '', 0, 3) . '...',
         ], 500);
     }
 });
