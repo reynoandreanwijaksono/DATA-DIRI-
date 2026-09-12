@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Certification;
 use App\Models\Experience;
 use App\Models\Project;
-use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Illuminate\Support\Facades\Artisan;
 
 class PortfolioController extends Controller
 {
@@ -15,9 +14,23 @@ class PortfolioController extends Controller
      */
     public function index()
     {
-        $projects = Project::orderBy('sort_order', 'asc')->get();
-        $experiences = Experience::orderBy('sort_order', 'asc')->get();
-        $certifications = Certification::orderBy('sort_order', 'asc')->get();
+        try {
+            $projects = Project::orderBy('sort_order', 'asc')->get();
+            $experiences = Experience::orderBy('sort_order', 'asc')->get();
+            $certifications = Certification::orderBy('sort_order', 'asc')->get();
+        } catch (\Throwable $e) {
+            try {
+                Artisan::call('migrate', ['--force' => true]);
+                Artisan::call('db:seed', ['--force' => true]);
+                $projects = Project::orderBy('sort_order', 'asc')->get();
+                $experiences = Experience::orderBy('sort_order', 'asc')->get();
+                $certifications = Certification::orderBy('sort_order', 'asc')->get();
+            } catch (\Throwable $migrationError) {
+                $projects = collect();
+                $experiences = collect();
+                $certifications = collect();
+            }
+        }
 
         $skills = [
             'web' => [
