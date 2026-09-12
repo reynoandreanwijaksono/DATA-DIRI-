@@ -70,7 +70,7 @@
                         <div class="sm:col-span-5 relative">
                             <div class="rounded-2xl overflow-hidden shadow-md border border-slate-100 dark:border-slate-800 transform group-hover:scale-[1.03] transition-transform duration-300">
                                 <img 
-                                    src="{{ asset($p1->image ?? 'images/projects/bewole-furniture.jpg') }}" 
+                                    src="{{ asset($p1->image ?? 'images/projects/bewole-furniture.jpg') }}?v={{ file_exists(public_path($p1->image ?? 'images/projects/bewole-furniture.jpg')) ? filemtime(public_path($p1->image ?? 'images/projects/bewole-furniture.jpg')) : 1 }}" 
                                     alt="{{ $p1->title }}" 
                                     class="w-full h-auto aspect-[4/3] object-cover"
                                     loading="lazy"
@@ -110,6 +110,16 @@
                                     {{ $tech }}
                                 </span>
                             @endforeach
+                        </div>
+
+                        <!-- Card Mockup Image Preview -->
+                        <div class="rounded-2xl overflow-hidden shadow-md border border-white/20 transform group-hover:scale-[1.02] transition-transform duration-300 mt-2">
+                            <img 
+                                src="{{ asset($p2->image ?? 'images/projects/portfolio.jpg') }}?v={{ file_exists(public_path($p2->image ?? 'images/projects/portfolio.jpg')) ? filemtime(public_path($p2->image ?? 'images/projects/portfolio.jpg')) : 1 }}" 
+                                alt="{{ $p2->title }}" 
+                                class="w-full h-auto aspect-[16/9] object-cover"
+                                loading="lazy"
+                            >
                         </div>
                     </div>
 
@@ -218,7 +228,7 @@
                         <div class="sm:col-span-5 relative">
                             <div class="rounded-2xl overflow-hidden shadow-md border border-slate-100 dark:border-slate-800 transform group-hover:scale-[1.03] transition-transform duration-300">
                                 <img 
-                                    src="{{ asset($p4->image ?? 'images/projects/azizicake.jpg') }}" 
+                                    src="{{ asset($p4->image ?? 'images/projects/azizicake.jpg') }}?v={{ file_exists(public_path($p4->image ?? 'images/projects/azizicake.jpg')) ? filemtime(public_path($p4->image ?? 'images/projects/azizicake.jpg')) : 1 }}" 
                                     alt="{{ $p4->title }}" 
                                     class="w-full h-auto aspect-[4/3] object-cover"
                                     loading="lazy"

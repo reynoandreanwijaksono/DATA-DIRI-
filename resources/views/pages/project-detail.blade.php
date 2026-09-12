@@ -83,7 +83,7 @@
             <!-- Main High-Res Mockup Showcase -->
             <div class="rounded-3xl overflow-hidden border border-slate-200/80 dark:border-slate-800 shadow-xl bg-white dark:bg-slate-900">
                 <img 
-                    src="{{ asset($project->image ?? 'images/projects/azizicake.jpg') }}" 
+                    src="{{ asset($project->image ?? 'images/projects/azizicake.jpg') }}?v={{ file_exists(public_path($project->image ?? '')) ? filemtime(public_path($project->image ?? '')) : 1 }}" 
                     alt="{{ $project->title }}" 
                     class="w-full h-auto aspect-[16/9] object-cover"
                 >

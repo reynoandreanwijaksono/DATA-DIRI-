@@ -13,6 +13,11 @@ php artisan storage:link || true
 if [ -n "$DB_HOST" ] && [ -n "$DB_DATABASE" ]; then
     echo "Running database migrations..."
     php artisan migrate --force || echo "Warning: Migration failed, continuing..."
+
+    if [ "$SEED_DATABASE" = "true" ] || [ "$RUN_SEEDER" = "true" ]; then
+        echo "Running database seeder..."
+        php artisan db:seed --force || echo "Warning: Seeding failed, continuing..."
+    fi
 fi
 
 # Cache configuration, routes, and views

@@ -16,7 +16,7 @@
                 <div class="w-full relative group">
                     <div class="relative overflow-hidden rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-md">
                         <img 
-                            src="{{ asset('images/profile.jpg') }}" 
+                            src="{{ asset('images/profile.jpg') }}?v={{ file_exists(public_path('images/profile.jpg')) ? filemtime(public_path('images/profile.jpg')) : 1 }}" 
                             alt="Reyno Andrean Wijaksono" 
                             class="w-full aspect-[4/4.5] object-cover object-center transform group-hover:scale-[1.02] transition-transform duration-500"
                             loading="lazy"
