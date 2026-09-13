@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Controllers\PortfolioController;
-use Illuminate\Support\Facades\Artisan;
+use App\Models\Experience;
+use App\Models\Project;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,28 +21,17 @@ Route::get('/cv/download', [PortfolioController::class, 'downloadCv']);
 
 Route::get('/migrate-db-init', function () {
     try {
-        Artisan::call('migrate', ['--force' => true]);
-        $migrate = Artisan::output();
-
-        Artisan::call('db:seed', ['--force' => true]);
-        $seed = Artisan::output();
-
         return response()->json([
             'status' => 'success',
-            'message' => 'Database successfully migrated and seeded!',
-            'migrate_output' => $migrate,
-            'seed_output' => $seed,
+            'message' => 'Database SQLite is active and loaded!',
+            'projects_count' => Project::count(),
+            'experiences_count' => Experience::count(),
+            'projects' => Project::pluck('title'),
         ]);
-    } catch (\Throwable $e) {
+    } catch (Throwable $e) {
         return response()->json([
             'status' => 'error',
             'error' => $e->getMessage(),
-            'db_host' => config('database.connections.mysql.host'),
-            'db_port' => config('database.connections.mysql.port'),
-            'db_database' => config('database.connections.mysql.database'),
-            'db_username' => config('database.connections.mysql.username'),
-            'db_password_len' => strlen(config('database.connections.mysql.password') ?? ''),
-            'db_password_preview' => substr(config('database.connections.mysql.password') ?? '', 0, 3) . '...',
         ], 500);
     }
 });

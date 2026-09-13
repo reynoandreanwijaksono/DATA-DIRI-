@@ -17,7 +17,7 @@ $storagePaths = [
 ];
 
 foreach ($storagePaths as $path) {
-    if (!is_dir($path)) {
+    if (! is_dir($path)) {
         mkdir($path, 0755, true);
     }
 }
@@ -31,14 +31,30 @@ putenv('VIEW_COMPILED_PATH=/tmp/storage/framework/views');
 $_ENV['VIEW_COMPILED_PATH'] = '/tmp/storage/framework/views';
 $_SERVER['VIEW_COMPILED_PATH'] = '/tmp/storage/framework/views';
 
+// 3. Prepare high-speed, self-contained SQLite database in /tmp with pre-seeded portfolio data
+$sourceDb = __DIR__.'/../database/database.sqlite';
+$targetDb = '/tmp/database.sqlite';
+if (! file_exists($targetDb) && file_exists($sourceDb)) {
+    copy($sourceDb, $targetDb);
+}
+
+// 4. Connect to local SQLite database in /tmp
+putenv('DB_CONNECTION=sqlite');
+$_ENV['DB_CONNECTION'] = 'sqlite';
+$_SERVER['DB_CONNECTION'] = 'sqlite';
+
+putenv('DB_DATABASE='.$targetDb);
+$_ENV['DB_DATABASE'] = $targetDb;
+$_SERVER['DB_DATABASE'] = $targetDb;
+
 define('LARAVEL_START', microtime(true));
 
-// 3. Register Composer autoloader
-require __DIR__ . '/../vendor/autoload.php';
+// 5. Register Composer autoloader
+require __DIR__.'/../vendor/autoload.php';
 
-// 4. Bootstrap Laravel application
+// 6. Bootstrap Laravel application
 /** @var Application $app */
-$app = require_once __DIR__ . '/../bootstrap/app.php';
+$app = require_once __DIR__.'/../bootstrap/app.php';
 
-// 5. Handle incoming HTTP request
+// 7. Handle incoming HTTP request
 $app->handleRequest(Request::capture());
