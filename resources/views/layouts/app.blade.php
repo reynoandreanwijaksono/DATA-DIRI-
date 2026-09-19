@@ -66,34 +66,120 @@
 
     @livewireScripts
 
-    <!-- Turbo & Navigation Lifecycle Handler -->
+    <!-- Turbo & Navigation Lifecycle Handler with Liquid Glass Transitions -->
     <script>
         (function() {
             let activeScrollListener = null;
+            let currentActiveLink = null;
+            let isHovering = false;
 
-            function initScrollSpy() {
+            function moveLiquidPillTo(linkEl, isInstant = false) {
+                const pill = document.getElementById('liquid-nav-pill');
+                const container = document.getElementById('desktop-nav-container');
+                if (!pill || !container || !linkEl) return;
+
+                const linkRect = linkEl.getBoundingClientRect();
+                const containerRect = container.getBoundingClientRect();
+
+                const left = linkRect.left - containerRect.left;
+                const top = linkRect.top - containerRect.top;
+                const width = linkRect.width;
+                const height = linkRect.height;
+
+                if (isInstant) {
+                    pill.style.transition = 'none';
+                    pill.classList.remove('liquid-moving');
+                } else {
+                    pill.style.transition = 'left 0.42s cubic-bezier(0.34, 1.35, 0.64, 1), width 0.35s cubic-bezier(0.34, 1.35, 0.64, 1), top 0.35s ease, height 0.35s ease, opacity 0.25s ease, transform 0.42s ease';
+                    pill.classList.add('liquid-moving');
+                    clearTimeout(pill._moveTimeout);
+                    pill._moveTimeout = setTimeout(() => pill.classList.remove('liquid-moving'), 420);
+                }
+
+                pill.style.left = `${left}px`;
+                pill.style.top = `${top}px`;
+                pill.style.width = `${width}px`;
+                pill.style.height = `${height}px`;
+                pill.style.opacity = '1';
+            }
+
+            function initLiquidNav() {
                 const sections = document.querySelectorAll('section[id]');
-                const navLinks = document.querySelectorAll('.nav-link');
-                if (!sections.length || !navLinks.length) return;
+                const navLinks = document.querySelectorAll('#desktop-nav-container .nav-link');
+                const container = document.getElementById('desktop-nav-container');
+                if (!navLinks.length) return;
 
                 function highlightNav() {
                     const scrollY = window.pageYOffset;
+                    let foundSection = null;
+
                     sections.forEach(current => {
                         const sectionHeight = current.offsetHeight;
-                        const sectionTop = current.offsetTop - 120;
-                        const sectionId = current.getAttribute('id');
+                        const sectionTop = current.offsetTop - 130;
+                        if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+                            foundSection = current.getAttribute('id');
+                        }
+                    });
 
-                        if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-                            navLinks.forEach(link => {
-                                const href = link.getAttribute('href') || '';
-                                if (href === `#${sectionId}` || (href === '/' && sectionId === 'home') || href.endsWith(`#${sectionId}`)) {
-                                    link.classList.add('text-emerald-800', 'dark:text-emerald-400', 'font-bold');
-                                    link.classList.remove('text-slate-600', 'dark:text-slate-300');
-                                } else if (href.includes('#')) {
-                                    link.classList.remove('text-emerald-800', 'dark:text-emerald-400', 'font-bold');
-                                    link.classList.add('text-slate-600', 'dark:text-slate-300');
+                    // Default to first section when near the top
+                    if (!foundSection && scrollY < 200 && sections.length > 0) {
+                        foundSection = sections[0].getAttribute('id');
+                    }
+
+                    if (foundSection) {
+                        navLinks.forEach(link => {
+                            const href = link.getAttribute('href') || '';
+                            if (href === `#${foundSection}` || (href === '/' && foundSection === 'home') || href.endsWith(`#${foundSection}`)) {
+                                link.classList.add('text-emerald-950', 'dark:text-emerald-300', 'font-bold');
+                                link.classList.remove('text-slate-600', 'dark:text-slate-300');
+                                currentActiveLink = link;
+                                if (!isHovering) {
+                                    moveLiquidPillTo(link);
                                 }
-                            });
+                            } else if (href.includes('#')) {
+                                link.classList.remove('text-emerald-950', 'dark:text-emerald-300', 'font-bold');
+                                link.classList.add('text-slate-600', 'dark:text-slate-300');
+                            }
+                        });
+                    }
+                }
+
+                // Attach interactive hover & click listeners for liquid transition ("saat berpindah")
+                navLinks.forEach(link => {
+                    link.addEventListener('mouseenter', () => {
+                        isHovering = true;
+                        moveLiquidPillTo(link, false);
+                    });
+
+                    link.addEventListener('click', (e) => {
+                        // Liquid ripple burst on click
+                        const rect = link.getBoundingClientRect();
+                        const ripple = document.createElement('span');
+                        ripple.className = 'liquid-click-ripple';
+                        const size = Math.max(rect.width, rect.height) * 1.8;
+                        ripple.style.width = `${size}px`;
+                        ripple.style.height = `${size}px`;
+                        ripple.style.left = `${e.clientX - rect.left}px`;
+                        ripple.style.top = `${e.clientY - rect.top}px`;
+                        link.appendChild(ripple);
+                        setTimeout(() => ripple.remove(), 600);
+
+                        currentActiveLink = link;
+                        navLinks.forEach(l => {
+                            l.classList.remove('text-emerald-950', 'dark:text-emerald-300', 'font-bold');
+                            l.classList.add('text-slate-600', 'dark:text-slate-300');
+                        });
+                        link.classList.add('text-emerald-950', 'dark:text-emerald-300', 'font-bold');
+                        link.classList.remove('text-slate-600', 'dark:text-slate-300');
+                        moveLiquidPillTo(link, false);
+                    });
+                });
+
+                if (container) {
+                    container.addEventListener('mouseleave', () => {
+                        isHovering = false;
+                        if (currentActiveLink) {
+                            moveLiquidPillTo(currentActiveLink, false);
                         }
                     });
                 }
@@ -103,12 +189,23 @@
                 }
                 activeScrollListener = highlightNav;
                 window.addEventListener('scroll', highlightNav, { passive: true });
-                highlightNav();
+                window.addEventListener('resize', () => {
+                    if (currentActiveLink) moveLiquidPillTo(currentActiveLink, true);
+                }, { passive: true });
+
+                // Initial position after render
+                setTimeout(() => {
+                    highlightNav();
+                    if (!currentActiveLink && navLinks.length > 0) {
+                        currentActiveLink = navLinks[0];
+                        moveLiquidPillTo(navLinks[0], true);
+                    }
+                }, 100);
             }
 
             // Runs on initial page load and every subsequent Turbo Drive visit
             document.addEventListener('turbo:load', () => {
-                initScrollSpy();
+                initLiquidNav();
 
                 // Reconnect Livewire if present
                 if (window.Livewire && typeof window.Livewire.rescan === 'function') {

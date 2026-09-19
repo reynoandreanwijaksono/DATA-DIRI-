@@ -19,31 +19,33 @@
                     </span>
                 </a>
 
-                <!-- Desktop Nav Links -->
-                <div class="relative z-10 hidden md:flex items-center space-x-1 lg:space-x-2">
-                    <a href="{{ request()->is('/') ? '#home' : url('/#home') }}" class="nav-link relative px-3.5 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-emerald-900 dark:hover:text-emerald-300 rounded-full transition-all duration-200 group overflow-hidden">
+                <!-- Desktop Nav Links Container -->
+                <div id="desktop-nav-container" class="relative z-10 hidden md:flex items-center space-x-1 lg:space-x-2 p-0.5">
+                    <!-- Sliding Liquid Glass Active Indicator Pill ("Saat Berpindah") -->
+                    <div id="liquid-nav-pill" class="absolute pointer-events-none rounded-full liquid-glass-pill opacity-0" aria-hidden="true" style="top: 0; left: 0; width: 0; height: 0;">
+                        <div class="absolute inset-0 rounded-full overflow-hidden">
+                            <div class="liquid-pill-shimmer"></div>
+                            <div class="liquid-pill-fluid"></div>
+                        </div>
+                    </div>
+
+                    <a href="{{ request()->is('/') ? '#home' : url('/#home') }}" class="nav-link relative z-10 px-3.5 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-emerald-950 dark:hover:text-emerald-300 rounded-full transition-all duration-200 group overflow-hidden">
                         <span class="relative z-10">Home</span>
-                        <span class="absolute inset-0 rounded-full bg-emerald-500/10 dark:bg-emerald-400/15 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none"></span>
                     </a>
-                    <a href="{{ request()->is('/') ? '#about' : url('/#about') }}" class="nav-link relative px-3.5 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-emerald-900 dark:hover:text-emerald-300 rounded-full transition-all duration-200 group overflow-hidden">
+                    <a href="{{ request()->is('/') ? '#about' : url('/#about') }}" class="nav-link relative z-10 px-3.5 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-emerald-950 dark:hover:text-emerald-300 rounded-full transition-all duration-200 group overflow-hidden">
                         <span class="relative z-10">About</span>
-                        <span class="absolute inset-0 rounded-full bg-emerald-500/10 dark:bg-emerald-400/15 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none"></span>
                     </a>
-                    <a href="{{ request()->is('/') ? '#skills' : url('/#skills') }}" class="nav-link relative px-3.5 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-emerald-900 dark:hover:text-emerald-300 rounded-full transition-all duration-200 group overflow-hidden">
+                    <a href="{{ request()->is('/') ? '#skills' : url('/#skills') }}" class="nav-link relative z-10 px-3.5 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-emerald-950 dark:hover:text-emerald-300 rounded-full transition-all duration-200 group overflow-hidden">
                         <span class="relative z-10">Skills</span>
-                        <span class="absolute inset-0 rounded-full bg-emerald-500/10 dark:bg-emerald-400/15 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none"></span>
                     </a>
-                    <a href="{{ request()->is('/') ? '#projects' : url('/#projects') }}" class="nav-link relative px-3.5 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-emerald-900 dark:hover:text-emerald-300 rounded-full transition-all duration-200 group overflow-hidden">
+                    <a href="{{ request()->is('/') ? '#projects' : url('/#projects') }}" class="nav-link relative z-10 px-3.5 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-emerald-950 dark:hover:text-emerald-300 rounded-full transition-all duration-200 group overflow-hidden">
                         <span class="relative z-10">Projects</span>
-                        <span class="absolute inset-0 rounded-full bg-emerald-500/10 dark:bg-emerald-400/15 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none"></span>
                     </a>
-                    <a href="{{ request()->is('/') ? '#experience' : url('/#experience') }}" class="nav-link relative px-3.5 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-emerald-900 dark:hover:text-emerald-300 rounded-full transition-all duration-200 group overflow-hidden">
+                    <a href="{{ request()->is('/') ? '#experience' : url('/#experience') }}" class="nav-link relative z-10 px-3.5 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-emerald-950 dark:hover:text-emerald-300 rounded-full transition-all duration-200 group overflow-hidden">
                         <span class="relative z-10">Experience</span>
-                        <span class="absolute inset-0 rounded-full bg-emerald-500/10 dark:bg-emerald-400/15 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none"></span>
                     </a>
-                    <a href="{{ request()->is('/') ? '#contact' : url('/#contact') }}" class="nav-link relative px-3.5 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-emerald-900 dark:hover:text-emerald-300 rounded-full transition-all duration-200 group overflow-hidden">
+                    <a href="{{ request()->is('/') ? '#contact' : url('/#contact') }}" class="nav-link relative z-10 px-3.5 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-emerald-950 dark:hover:text-emerald-300 rounded-full transition-all duration-200 group overflow-hidden">
                         <span class="relative z-10">Contact</span>
-                        <span class="absolute inset-0 rounded-full bg-emerald-500/10 dark:bg-emerald-400/15 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none"></span>
                     </a>
                 </div>
 
