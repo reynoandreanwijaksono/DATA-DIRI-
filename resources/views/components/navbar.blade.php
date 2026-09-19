@@ -21,11 +21,10 @@
 
                 <!-- Desktop Nav Links Container -->
                 <div id="desktop-nav-container" class="relative z-10 hidden md:flex items-center space-x-1 lg:space-x-2 p-0.5">
-                    <!-- Sliding Liquid Glass Active Indicator Pill ("Saat Berpindah") -->
-                    <div id="liquid-nav-pill" class="absolute pointer-events-none rounded-full liquid-glass-pill opacity-0" aria-hidden="true" style="top: 0; left: 0; width: 0; height: 0;">
+                    <!-- Sliding 3D Liquid Glass Droplet Lens ("Gini Loh") -->
+                    <div id="liquid-nav-pill" class="liquid-glass-lens opacity-0" aria-hidden="true" style="top: 0; left: 0; width: 0; height: 0;">
                         <div class="absolute inset-0 rounded-full overflow-hidden">
-                            <div class="liquid-pill-shimmer"></div>
-                            <div class="liquid-pill-fluid"></div>
+                            <div class="liquid-lens-shimmer"></div>
                         </div>
                     </div>
 

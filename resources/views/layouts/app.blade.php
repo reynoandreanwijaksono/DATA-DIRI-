@@ -81,19 +81,26 @@
                 const linkRect = linkEl.getBoundingClientRect();
                 const containerRect = container.getBoundingClientRect();
 
-                const left = linkRect.left - containerRect.left;
-                const top = linkRect.top - containerRect.top;
-                const width = linkRect.width;
-                const height = linkRect.height;
+                // 3D bulbous droplet padding extending slightly outside the track
+                const xPad = 8;
+                const yPad = 6;
+                const left = (linkRect.left - containerRect.left) - (xPad / 2);
+                const top = (linkRect.top - containerRect.top) - (yPad / 2);
+                const width = linkRect.width + xPad;
+                const height = linkRect.height + yPad;
 
                 if (isInstant) {
                     pill.style.transition = 'none';
-                    pill.classList.remove('liquid-moving');
+                    pill.classList.remove('liquid-moving', 'liquid-settling');
                 } else {
-                    pill.style.transition = 'left 0.42s cubic-bezier(0.34, 1.35, 0.64, 1), width 0.35s cubic-bezier(0.34, 1.35, 0.64, 1), top 0.35s ease, height 0.35s ease, opacity 0.25s ease, transform 0.42s ease';
+                    pill.classList.remove('liquid-settling');
                     pill.classList.add('liquid-moving');
                     clearTimeout(pill._moveTimeout);
-                    pill._moveTimeout = setTimeout(() => pill.classList.remove('liquid-moving'), 420);
+                    pill._moveTimeout = setTimeout(() => {
+                        pill.classList.remove('liquid-moving');
+                        pill.classList.add('liquid-settling');
+                        setTimeout(() => pill.classList.remove('liquid-settling'), 450);
+                    }, 440);
                 }
 
                 pill.style.left = `${left}px`;
