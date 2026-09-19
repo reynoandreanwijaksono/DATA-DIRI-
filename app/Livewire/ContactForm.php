@@ -2,7 +2,9 @@
 
 namespace App\Livewire;
 
+use App\Mail\ContactMessageMail;
 use App\Models\ContactMessage;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Request;
 use Livewire\Component;
@@ -117,7 +119,20 @@ class ContactForm extends Component
             }
         }
 
-        // 5. Reset fields and display success feedback
+        // 5. Send notification email to website owner (Reyno)
+        try {
+            $recipient = config('mail.contact_recipient', 'reynoandreanwijaksono@gmail.com');
+            Mail::to($recipient)->send(new ContactMessageMail([
+                'name' => strip_tags($validatedData['name']),
+                'email' => filter_var($validatedData['email'], FILTER_SANITIZE_EMAIL),
+                'subject' => strip_tags($validatedData['subject']),
+                'message' => strip_tags($validatedData['message']),
+            ]));
+        } catch (\Throwable $mailError) {
+            \Illuminate\Support\Facades\Log::warning('Contact form email delivery notice: '.$mailError->getMessage());
+        }
+
+        // 6. Reset fields and display success feedback
         $this->reset(['name', 'email', 'subject', 'message']);
         $this->submitted = true;
         $this->successMessage = 'Thank you for your message! I will get back to you as soon as possible.';
