@@ -79,15 +79,43 @@ class ContactForm extends Component
 
         RateLimiter::hit($throttleKey, 300);
 
-        // 4. Save message to database
-        ContactMessage::create([
-            'name' => strip_tags($validatedData['name']),
-            'email' => filter_var($validatedData['email'], FILTER_SANITIZE_EMAIL),
-            'subject' => strip_tags($validatedData['subject']),
-            'message' => strip_tags($validatedData['message']),
-            'ip_address' => $ip,
-            'is_read' => false,
-        ]);
+        // 4. Save message to database with resilient error handling
+        try {
+            ContactMessage::create([
+                'name' => strip_tags($validatedData['name']),
+                'email' => filter_var($validatedData['email'], FILTER_SANITIZE_EMAIL),
+                'subject' => strip_tags($validatedData['subject']),
+                'message' => strip_tags($validatedData['message']),
+                'ip_address' => $ip,
+                'is_read' => false,
+            ]);
+        } catch (\Throwable $e) {
+            \Illuminate\Support\Facades\Log::error('Contact form submission DB warning: '.$e->getMessage(), [
+                'name' => $validatedData['name'] ?? null,
+                'email' => $validatedData['email'] ?? null,
+            ]);
+
+            // Save to fallback storage so message is never lost
+            try {
+                $backupDir = storage_path('app');
+                if (! is_dir($backupDir)) {
+                    @mkdir($backupDir, 0755, true);
+                }
+                $fallbackFile = storage_path('app/contact_messages_backup.json');
+                $existing = file_exists($fallbackFile) ? json_decode(file_get_contents($fallbackFile), true) ?: [] : [];
+                $existing[] = [
+                    'name' => strip_tags($validatedData['name']),
+                    'email' => filter_var($validatedData['email'], FILTER_SANITIZE_EMAIL),
+                    'subject' => strip_tags($validatedData['subject']),
+                    'message' => strip_tags($validatedData['message']),
+                    'ip_address' => $ip,
+                    'created_at' => now()->toIso8601String(),
+                ];
+                @file_put_contents($fallbackFile, json_encode($existing, JSON_PRETTY_PRINT));
+            } catch (\Throwable $storageError) {
+                \Illuminate\Support\Facades\Log::error('Contact form backup write error: '.$storageError->getMessage());
+            }
+        }
 
         // 5. Reset fields and display success feedback
         $this->reset(['name', 'email', 'subject', 'message']);
