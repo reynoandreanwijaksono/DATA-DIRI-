@@ -6,7 +6,7 @@
             <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
                 About Me
             </h2>
-            <div class="w-12 h-1 bg-blue-600 rounded-full mt-3"></div>
+            <div class="w-14 h-1.5 bg-gradient-to-r from-[#022c22] via-[#064e3b] to-[#10b981] rounded-full mt-3 shadow-[0_0_10px_rgba(16,185,129,0.35)]"></div>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
@@ -46,8 +46,8 @@
                 <!-- 4 CV Highlights Cards -->
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
                     <!-- Highlight 1: Location -->
-                    <div class="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 shadow-sm hover:shadow-md hover:border-blue-300 dark:hover:border-blue-700/60 transition-all text-center flex flex-col justify-between">
-                        <span class="block text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 mb-2">
+                    <div class="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 shadow-sm hover:shadow-md hover:border-emerald-400 dark:hover:border-emerald-700/60 transition-all text-center flex flex-col justify-between">
+                        <span class="block text-xs font-bold uppercase tracking-wider text-emerald-800 dark:text-emerald-400 mb-2">
                             Lokasi
                         </span>
                         <span class="block text-base sm:text-lg font-bold text-slate-900 dark:text-white tracking-tight leading-tight">
@@ -59,8 +59,8 @@
                     </div>
 
                     <!-- Highlight 2: Education -->
-                    <div class="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 shadow-sm hover:shadow-md hover:border-blue-300 dark:hover:border-blue-700/60 transition-all text-center flex flex-col justify-between">
-                        <span class="block text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 mb-2">
+                    <div class="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 shadow-sm hover:shadow-md hover:border-emerald-400 dark:hover:border-emerald-700/60 transition-all text-center flex flex-col justify-between">
+                        <span class="block text-xs font-bold uppercase tracking-wider text-emerald-800 dark:text-emerald-400 mb-2">
                             Pendidikan
                         </span>
                         <span class="block text-base sm:text-lg font-bold text-slate-900 dark:text-white tracking-tight leading-tight">
@@ -72,8 +72,8 @@
                     </div>
 
                     <!-- Highlight 3: Focus -->
-                    <div class="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 shadow-sm hover:shadow-md hover:border-blue-300 dark:hover:border-blue-700/60 transition-all text-center flex flex-col justify-between">
-                        <span class="block text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 mb-2">
+                    <div class="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 shadow-sm hover:shadow-md hover:border-emerald-400 dark:hover:border-emerald-700/60 transition-all text-center flex flex-col justify-between">
+                        <span class="block text-xs font-bold uppercase tracking-wider text-emerald-800 dark:text-emerald-400 mb-2">
                             Fokus Utama
                         </span>
                         <span class="block text-base sm:text-lg font-bold text-slate-900 dark:text-white tracking-tight leading-tight">
@@ -85,8 +85,8 @@
                     </div>
 
                     <!-- Highlight 4: Languages -->
-                    <div class="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 shadow-sm hover:shadow-md hover:border-blue-300 dark:hover:border-blue-700/60 transition-all text-center flex flex-col justify-between">
-                        <span class="block text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 mb-2">
+                    <div class="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 shadow-sm hover:shadow-md hover:border-emerald-400 dark:hover:border-emerald-700/60 transition-all text-center flex flex-col justify-between">
+                        <span class="block text-xs font-bold uppercase tracking-wider text-emerald-800 dark:text-emerald-400 mb-2">
                             Bahasa
                         </span>
                         <span class="block text-base sm:text-lg font-bold text-slate-900 dark:text-white tracking-tight leading-tight">
@@ -100,7 +100,7 @@
 
                 <!-- Education & Activity Timeline -->
                 <div class="p-6 sm:p-7 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm">
-                    <div class="flex items-center space-x-2.5 mb-6 text-blue-600 dark:text-blue-500">
+                    <div class="flex items-center space-x-2.5 mb-6 text-emerald-800 dark:text-emerald-400">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path d="M12 14l9-5-9-5-9 5 9 5z"></path>
                             <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path>
@@ -110,12 +110,12 @@
                         </h4>
                     </div>
 
-                    <div class="relative pl-6 border-l-2 border-blue-200 dark:border-slate-700 space-y-6">
+                    <div class="relative pl-6 border-l-2 border-emerald-200/80 dark:border-slate-700 space-y-6">
                         <!-- Education: SMKN 1 Bangsri -->
                         <div class="relative group">
-                            <span class="absolute -left-[31px] top-1.5 w-3.5 h-3.5 rounded-full bg-blue-600 ring-4 ring-white dark:ring-slate-900"></span>
+                            <span class="absolute -left-[31px] top-1.5 w-3.5 h-3.5 rounded-full bg-[#064e3b] ring-4 ring-emerald-100 dark:ring-slate-900 shadow-[0_0_10px_rgba(16,185,129,0.4)]"></span>
                             <div class="flex flex-wrap items-center gap-2">
-                                <span class="px-2.5 py-0.5 rounded-md bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-400 text-xs font-semibold">
+                                <span class="px-2.5 py-0.5 rounded-md bg-emerald-50 dark:bg-emerald-950/60 text-emerald-900 dark:text-emerald-300 border border-emerald-200/60 text-xs font-semibold">
                                     2024 – Sekarang
                                 </span>
                                 <span class="text-xs text-slate-400 font-medium">Bangsri, Jepara</span>
@@ -123,7 +123,7 @@
                             <h5 class="text-base font-bold text-slate-900 dark:text-white mt-1.5">
                                 SMK Negeri 1 Bangsri
                             </h5>
-                            <p class="text-xs sm:text-sm font-medium text-blue-600 dark:text-blue-400 mt-0.5">
+                            <p class="text-xs sm:text-sm font-semibold text-emerald-800 dark:text-emerald-400 mt-0.5">
                                 Pengembangan Perangkat Lunak dan Gim (PPLG)
                             </p>
                             <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">

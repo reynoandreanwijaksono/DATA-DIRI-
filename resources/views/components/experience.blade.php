@@ -8,32 +8,32 @@
             <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
                 Pendidikan & Organisasi
             </h2>
-            <div class="w-12 h-1 bg-blue-600 rounded-full mt-3"></div>
+            <div class="w-14 h-1.5 bg-gradient-to-r from-[#022c22] via-[#064e3b] to-[#10b981] rounded-full mt-3 shadow-[0_0_10px_rgba(16,185,129,0.35)]"></div>
             <p class="text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-xl mt-4">
                 Riwayat pendidikan kejuruan dan aktivitas organisasi ekstrakurikuler di sekolah.
             </p>
         </div>
 
         <!-- Vertical Timeline -->
-        <div class="relative pl-6 sm:pl-8 border-l-2 border-blue-200 dark:border-slate-800 space-y-12">
+        <div class="relative pl-6 sm:pl-8 border-l-2 border-emerald-200/80 dark:border-slate-800 space-y-12">
             
             @foreach($experiences as $exp)
                 <div class="relative group">
                     <!-- Glowing Marker Node -->
-                    <div class="absolute -left-[31px] sm:-left-[39px] top-1.5 w-4 h-4 rounded-full {{ $exp->is_current ? 'bg-blue-600 ring-4 ring-blue-100 dark:ring-blue-950 shadow-md shadow-blue-500/50' : 'bg-slate-300 dark:bg-slate-600 ring-4 ring-white dark:ring-slate-900' }} transition-all"></div>
+                    <div class="absolute -left-[31px] sm:-left-[39px] top-1.5 w-4 h-4 rounded-full {{ $exp->is_current ? 'bg-[#064e3b] ring-4 ring-emerald-100 dark:ring-emerald-950 shadow-md shadow-emerald-500/50' : 'bg-slate-300 dark:bg-slate-600 ring-4 ring-white dark:ring-slate-900' }} transition-all"></div>
 
-                    <div class="p-6 sm:p-7 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm hover:shadow-md hover:border-blue-300 dark:hover:border-blue-700/60 transition-all">
+                    <div class="p-6 sm:p-7 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm hover:shadow-md hover:border-emerald-400 dark:hover:border-emerald-700/60 transition-all">
                         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
                             <div>
                                 <h3 class="text-xl font-bold text-slate-900 dark:text-white">
                                     {{ $exp->position }}
                                 </h3>
-                                <p class="text-sm font-semibold text-blue-600 dark:text-blue-400 mt-0.5">
+                                <p class="text-sm font-semibold text-emerald-800 dark:text-emerald-400 mt-0.5">
                                     {{ $exp->company }} <span class="text-slate-400 font-normal">({{ $exp->location ?? 'Indonesia' }})</span>
                                 </p>
                             </div>
 
-                            <span class="inline-flex self-start sm:self-auto px-3 py-1 rounded-full {{ $exp->is_current ? 'bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 font-bold' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-medium' }} text-xs">
+                            <span class="inline-flex self-start sm:self-auto px-3 py-1 rounded-full {{ $exp->is_current ? 'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-900 dark:text-emerald-300 border border-emerald-200/60 font-bold' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-medium' }} text-xs">
                                 {{ $exp->period }}
                             </span>
                         </div>
@@ -48,7 +48,7 @@
                             <ul class="space-y-2 text-xs sm:text-sm text-slate-600 dark:text-slate-400">
                                 @foreach($exp->responsibilities as $resp)
                                     <li class="flex items-start space-x-2.5">
-                                        <svg class="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <svg class="w-4 h-4 text-emerald-700 dark:text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                                         </svg>
                                         <span>{{ $resp }}</span>

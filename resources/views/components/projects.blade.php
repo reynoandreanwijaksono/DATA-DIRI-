@@ -8,7 +8,7 @@
             <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
                 Featured Work
             </h2>
-            <div class="w-12 h-1 bg-blue-600 rounded-full mt-3"></div>
+            <div class="w-14 h-1.5 bg-gradient-to-r from-[#022c22] via-[#064e3b] to-[#10b981] rounded-full mt-3 shadow-[0_0_10px_rgba(16,185,129,0.35)]"></div>
         </div>
 
         <!-- Project Grid mirroring the Reference Layout -->
@@ -23,20 +23,20 @@
 
             <!-- Project 1: Website E-Commerce Bewole Furniture Jepara (Large Featured Spotlight Card) -->
             @if($p1)
-                <div class="md:col-span-8 group relative rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-6 sm:p-8 shadow-sm hover:shadow-xl hover:border-blue-300 dark:hover:border-blue-700/60 transition-all duration-300 flex flex-col justify-between overflow-hidden">
+                <div class="md:col-span-8 group relative rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-6 sm:p-8 shadow-sm hover:shadow-xl hover:border-emerald-400 dark:hover:border-emerald-700/60 transition-all duration-300 flex flex-col justify-between overflow-hidden">
                     <div class="grid grid-cols-1 sm:grid-cols-12 gap-6 items-center">
                         <div class="sm:col-span-7 space-y-4">
                             <!-- Category Badges -->
                             <div class="flex flex-wrap items-center gap-2">
-                                <span class="px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 text-[11px] font-bold uppercase tracking-wider">
+                                <span class="px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-950 dark:text-emerald-300 border border-emerald-200/60 text-[11px] font-bold uppercase tracking-wider">
                                     E-COMMERCE
                                 </span>
-                                <span class="px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 text-[11px] font-bold uppercase tracking-wider">
+                                <span class="px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-950 dark:text-emerald-300 border border-emerald-200/60 text-[11px] font-bold uppercase tracking-wider">
                                     LARAVEL 13
                                 </span>
                             </div>
 
-                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-emerald-800 dark:group-hover:text-emerald-400 transition-colors">
                                 {{ $p1->title }}
                             </h3>
 
@@ -56,7 +56,7 @@
                             <div class="pt-3">
                                 <a 
                                     href="{{ route('projects.show', $p1->slug) }}" 
-                                    class="inline-flex items-center text-sm font-semibold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors"
+                                    class="inline-flex items-center text-sm font-semibold text-slate-900 dark:text-white group-hover:text-emerald-800 dark:group-hover:text-emerald-400 transition-colors"
                                 >
                                     <span>Explore Project</span>
                                     <svg class="w-4 h-4 ml-1.5 transform group-hover:translate-x-1.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -81,15 +81,16 @@
                 </div>
             @endif
 
-            <!-- Project 2: Website Portfolio Pribadi (Solid Blue Styled Card) -->
+            <!-- Project 2: Website Portfolio Pribadi (Solid Glowing Dark Green Card) -->
             @if($p2)
-                <div class="md:col-span-4 group relative rounded-3xl bg-blue-600 text-white p-6 sm:p-8 shadow-md hover:shadow-xl hover:bg-blue-700 transition-all duration-300 flex flex-col justify-between overflow-hidden">
-                    <!-- Decorative Background Elements -->
-                    <div class="absolute -right-8 -bottom-8 w-40 h-40 bg-white/10 rounded-full blur-xl pointer-events-none"></div>
+                <div class="md:col-span-4 group relative rounded-3xl bg-gradient-to-br from-[#022c22] via-[#064e3b] to-[#043328] text-white p-6 sm:p-8 shadow-xl shadow-emerald-950/20 hover:shadow-2xl hover:shadow-emerald-950/30 border border-emerald-500/30 transition-all duration-300 flex flex-col justify-between overflow-hidden">
+                    <!-- Decorative Luminous Glow Orbs -->
+                    <div class="absolute -right-8 -bottom-8 w-44 h-44 bg-emerald-400/20 rounded-full blur-2xl pointer-events-none group-hover:scale-125 transition-transform duration-700"></div>
+                    <div class="absolute top-0 right-1/4 w-32 h-32 bg-teal-300/15 rounded-full blur-xl pointer-events-none"></div>
 
                     <div class="space-y-4 relative z-10">
-                        <!-- Icon Badge -->
-                        <div class="w-10 h-10 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-white">
+                        <!-- Icon Badge with Luminous Glow -->
+                        <div class="w-10 h-10 rounded-2xl bg-emerald-400/20 border border-emerald-400/30 backdrop-blur-md flex items-center justify-center text-emerald-300 shadow-[0_0_15px_rgba(52,211,153,0.3)]">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                             </svg>
@@ -99,21 +100,21 @@
                             {{ $p2->title }}
                         </h3>
 
-                        <p class="text-sm text-blue-100 leading-relaxed line-clamp-3">
+                        <p class="text-sm text-emerald-100/90 leading-relaxed line-clamp-3">
                             {{ $p2->description }}
                         </p>
 
                         <!-- Tech Stack Pills -->
                         <div class="flex flex-wrap gap-1.5 pt-1">
                             @foreach(array_slice($p2->technologies ?? [], 0, 4) as $tech)
-                                <span class="px-2.5 py-0.5 rounded-md bg-white/20 text-white text-xs font-medium">
+                                <span class="px-2.5 py-0.5 rounded-md bg-white/15 text-emerald-50 text-xs font-medium border border-white/10">
                                     {{ $tech }}
                                 </span>
                             @endforeach
                         </div>
 
                         <!-- Card Mockup Image Preview -->
-                        <div class="rounded-2xl overflow-hidden shadow-md border border-white/20 transform group-hover:scale-[1.02] transition-transform duration-300 mt-2">
+                        <div class="rounded-2xl overflow-hidden shadow-md border border-emerald-400/20 group-hover:border-emerald-400/50 transform group-hover:scale-[1.02] transition-all duration-300 mt-2">
                             <img 
                                 src="{{ asset($p2->image ?? 'images/projects/portfolio.jpg') }}?v={{ file_exists(public_path($p2->image ?? 'images/projects/portfolio.jpg')) ? filemtime(public_path($p2->image ?? 'images/projects/portfolio.jpg')) : 1 }}" 
                                 alt="{{ $p2->title }}" 
@@ -126,7 +127,7 @@
                     <div class="pt-6 relative z-10">
                         <a 
                             href="{{ route('projects.show', $p2->slug) }}" 
-                            class="inline-flex items-center text-sm font-semibold text-white hover:text-blue-200 transition-colors"
+                            class="inline-flex items-center text-sm font-semibold text-emerald-200 hover:text-white transition-colors"
                         >
                             <span>Explore Project</span>
                             <svg class="w-4 h-4 ml-1.5 transform group-hover:translate-x-1.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -139,7 +140,7 @@
 
             <!-- Project 3: Desain Konten Media Sosial (Clean Minimalist Card) -->
             @if($p3)
-                <div class="md:col-span-4 group relative rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-6 sm:p-8 shadow-sm hover:shadow-xl hover:border-blue-300 dark:hover:border-blue-700/60 transition-all duration-300 flex flex-col justify-between">
+                <div class="md:col-span-4 group relative rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-6 sm:p-8 shadow-sm hover:shadow-xl hover:border-emerald-400 dark:hover:border-emerald-700/60 transition-all duration-300 flex flex-col justify-between">
                     <div class="space-y-4">
                         <div class="w-10 h-10 rounded-2xl bg-purple-50 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 flex items-center justify-center">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -147,7 +148,7 @@
                             </svg>
                         </div>
 
-                        <h3 class="text-xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white group-hover:text-emerald-800 dark:group-hover:text-emerald-400 transition-colors">
                             {{ $p3->title }}
                         </h3>
 
@@ -168,7 +169,7 @@
                     <div class="pt-6">
                         <a 
                             href="{{ route('projects.show', $p3->slug) }}" 
-                            class="inline-flex items-center text-sm font-semibold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors"
+                            class="inline-flex items-center text-sm font-semibold text-slate-900 dark:text-white group-hover:text-emerald-800 dark:group-hover:text-emerald-400 transition-colors"
                         >
                             <span>Explore Project</span>
                             <svg class="w-4 h-4 ml-1.5 transform group-hover:translate-x-1.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -181,20 +182,20 @@
 
             <!-- Project 4: Website E-Commerce Aziziscakes (Spotlight Card with Image Preview) -->
             @if($p4)
-                <div class="md:col-span-8 group relative rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-6 sm:p-8 shadow-sm hover:shadow-xl hover:border-blue-300 dark:hover:border-blue-700/60 transition-all duration-300 flex flex-col justify-between overflow-hidden">
+                <div class="md:col-span-8 group relative rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-6 sm:p-8 shadow-sm hover:shadow-xl hover:border-emerald-400 dark:hover:border-emerald-700/60 transition-all duration-300 flex flex-col justify-between overflow-hidden">
                     <div class="grid grid-cols-1 sm:grid-cols-12 gap-6 items-center">
                         <div class="sm:col-span-7 space-y-4">
                             <!-- Category Badges -->
                             <div class="flex flex-wrap items-center gap-2">
-                                <span class="px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 text-[11px] font-bold uppercase tracking-wider">
+                                <span class="px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-950 dark:text-emerald-300 border border-emerald-200/60 text-[11px] font-bold uppercase tracking-wider">
                                     COMPANY PROFILE
                                 </span>
-                                <span class="px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 text-[11px] font-bold uppercase tracking-wider">
+                                <span class="px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-950 dark:text-emerald-300 border border-emerald-200/60 text-[11px] font-bold uppercase tracking-wider">
                                     LARAVEL 13
                                 </span>
                             </div>
 
-                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-emerald-800 dark:group-hover:text-emerald-400 transition-colors">
                                 {{ $p4->title }}
                             </h3>
 
@@ -214,7 +215,7 @@
                             <div class="pt-3">
                                 <a 
                                     href="{{ route('projects.show', $p4->slug) }}" 
-                                    class="inline-flex items-center text-sm font-semibold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors"
+                                    class="inline-flex items-center text-sm font-semibold text-slate-900 dark:text-white group-hover:text-emerald-800 dark:group-hover:text-emerald-400 transition-colors"
                                 >
                                     <span>Explore Project</span>
                                     <svg class="w-4 h-4 ml-1.5 transform group-hover:translate-x-1.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">

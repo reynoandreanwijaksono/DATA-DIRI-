@@ -26,7 +26,7 @@
     <meta property="twitter:image" content="{{ asset('images/profile.jpg') }}">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%230057D9'/><text x='50%' y='55%' dominant-baseline='central' text-anchor='middle' font-family='sans-serif' font-weight='800' font-size='46' fill='white'>RA.</text></svg>">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%23064e3b'/><text x='48%' y='55%' dominant-baseline='central' text-anchor='middle' font-family='sans-serif' font-weight='800' font-size='42' fill='white'>RA<tspan fill='%2334d399'>.</tspan></text></svg>">
 
     <!-- Fonts: Plus Jakarta Sans & Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -51,7 +51,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
 </head>
-<body class="bg-[#F8F9FC] dark:bg-[#051022] text-slate-900 dark:text-slate-100 font-sans antialiased selection:bg-blue-600 selection:text-white transition-colors duration-300 min-h-screen flex flex-col">
+<body class="bg-[#F7FAF8] dark:bg-[#051022] text-slate-900 dark:text-slate-100 font-sans antialiased selection:bg-emerald-900 selection:text-emerald-100 transition-colors duration-300 min-h-screen flex flex-col">
 
     <!-- Navbar Component -->
     <x-navbar />
@@ -87,10 +87,10 @@
                             navLinks.forEach(link => {
                                 const href = link.getAttribute('href') || '';
                                 if (href === `#${sectionId}` || (href === '/' && sectionId === 'home') || href.endsWith(`#${sectionId}`)) {
-                                    link.classList.add('text-blue-600', 'dark:text-blue-400', 'font-semibold');
+                                    link.classList.add('text-emerald-800', 'dark:text-emerald-400', 'font-bold');
                                     link.classList.remove('text-slate-600', 'dark:text-slate-300');
                                 } else if (href.includes('#')) {
-                                    link.classList.remove('text-blue-600', 'dark:text-blue-400', 'font-semibold');
+                                    link.classList.remove('text-emerald-800', 'dark:text-emerald-400', 'font-bold');
                                     link.classList.add('text-slate-600', 'dark:text-slate-300');
                                 }
                             });

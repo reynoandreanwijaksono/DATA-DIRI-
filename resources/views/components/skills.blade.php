@@ -8,7 +8,7 @@
             <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
                 Keahlian & Skills
             </h2>
-            <div class="w-12 h-1 bg-blue-600 rounded-full mt-3"></div>
+            <div class="w-14 h-1.5 bg-gradient-to-r from-[#022c22] via-[#064e3b] to-[#10b981] rounded-full mt-3 shadow-[0_0_10px_rgba(16,185,129,0.35)]"></div>
             <p class="text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-xl mt-4">
                 Keahlian teknis dan non-teknis yang berfokus pada pengembangan website, desain visual grafis, dan kolaborasi tim.
             </p>
@@ -22,7 +22,7 @@
                 <div>
                     <div class="flex items-center justify-between mb-6 pb-4 border-b border-slate-100 dark:border-slate-800">
                         <div class="flex items-center space-x-3.5">
-                            <div class="w-11 h-11 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center shadow-xs">
+                            <div class="w-11 h-11 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-400 flex items-center justify-center shadow-xs border border-emerald-200/60">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
                                 </svg>
@@ -34,16 +34,16 @@
                                 <span class="text-xs text-slate-500 dark:text-slate-400">Framework & Database</span>
                             </div>
                         </div>
-                        <span class="px-2.5 py-1 rounded-full bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 text-[11px] font-bold">
+                        <span class="px-2.5 py-1 rounded-full bg-emerald-100/70 dark:bg-emerald-950/60 text-emerald-950 dark:text-emerald-300 text-[11px] font-bold border border-emerald-200/60">
                             {{ count($skills['web'] ?? []) }} Tech
                         </span>
                     </div>
 
                     <div class="space-y-3">
                         @foreach($skills['web'] ?? [] as $skill)
-                            <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50/80 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 hover:border-blue-300 dark:hover:border-blue-700/60 transition-all group">
+                            <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50/80 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 hover:border-emerald-400 dark:hover:border-emerald-700/60 transition-all group">
                                 <div class="flex items-center space-x-3">
-                                    <div class="w-8 h-8 rounded-lg bg-white dark:bg-slate-800 text-blue-600 dark:text-blue-400 flex items-center justify-center shadow-2xs group-hover:scale-105 transition-transform">
+                                    <div class="w-8 h-8 rounded-lg bg-white dark:bg-slate-800 text-emerald-700 dark:text-emerald-400 flex items-center justify-center shadow-2xs group-hover:scale-105 transition-transform">
                                         @if($skill['name'] === 'Laravel')
                                             <svg class="w-4 h-4 text-red-500 fill-current" viewBox="0 0 24 24">
                                                 <path d="M12 2L2 7l10 5 10-5-10-5zm0 9l-10-5v9l10 5 10-5v-9l-10 5z"/>

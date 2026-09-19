@@ -40,14 +40,14 @@
             <!-- Name Field -->
             <div>
                 <label for="name" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                    Your Name <span class="text-blue-600">*</span>
+                    Your Name <span class="text-emerald-800">*</span>
                 </label>
                 <input 
                     type="text" 
                     id="name" 
                     wire:model.live.debounce.400ms="name"
                     placeholder="e.g. Alexander Vance"
-                    class="w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-900/90 border @error('name') border-rose-400 dark:border-rose-500 @else border-slate-200 dark:border-slate-700/80 @enderror text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all shadow-sm"
+                    class="w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-900/90 border @error('name') border-rose-400 dark:border-rose-500 @else border-slate-200 dark:border-slate-700/80 @enderror text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-800 focus:border-transparent transition-all shadow-sm"
                     autocomplete="name"
                 >
                 @error('name')
@@ -58,14 +58,14 @@
             <!-- Email Field -->
             <div>
                 <label for="email" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                    Email Address <span class="text-blue-600">*</span>
+                    Email Address <span class="text-emerald-800">*</span>
                 </label>
                 <input 
                     type="email" 
                     id="email" 
                     wire:model.live.debounce.400ms="email"
                     placeholder="alexander@example.com"
-                    class="w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-900/90 border @error('email') border-rose-400 dark:border-rose-500 @else border-slate-200 dark:border-slate-700/80 @enderror text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all shadow-sm"
+                    class="w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-900/90 border @error('email') border-rose-400 dark:border-rose-500 @else border-slate-200 dark:border-slate-700/80 @enderror text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-800 focus:border-transparent transition-all shadow-sm"
                     autocomplete="email"
                 >
                 @error('email')
@@ -77,14 +77,14 @@
         <!-- Subject Field -->
         <div>
             <label for="subject" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                Subject <span class="text-blue-600">*</span>
+                Subject <span class="text-emerald-800">*</span>
             </label>
             <input 
                 type="text" 
                 id="subject" 
                 wire:model.live.debounce.400ms="subject"
                 placeholder="Project Inquiry / Job Opportunity"
-                class="w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-900/90 border @error('subject') border-rose-400 dark:border-rose-500 @else border-slate-200 dark:border-slate-700/80 @enderror text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all shadow-sm"
+                class="w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-900/90 border @error('subject') border-rose-400 dark:border-rose-500 @else border-slate-200 dark:border-slate-700/80 @enderror text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-800 focus:border-transparent transition-all shadow-sm"
             >
             @error('subject')
                 <span class="text-xs text-rose-500 mt-1 block">{{ $message }}</span>
@@ -94,14 +94,14 @@
         <!-- Message Field -->
         <div>
             <label for="message" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                Message <span class="text-blue-600">*</span>
+                Message <span class="text-emerald-800">*</span>
             </label>
             <textarea 
                 id="message" 
                 wire:model.live.debounce.400ms="message"
                 rows="4" 
                 placeholder="Tell me about your project, idea, or timeline..."
-                class="w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-900/90 border @error('message') border-rose-400 dark:border-rose-500 @else border-slate-200 dark:border-slate-700/80 @enderror text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all resize-none shadow-sm"
+                class="w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-900/90 border @error('message') border-rose-400 dark:border-rose-500 @else border-slate-200 dark:border-slate-700/80 @enderror text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-800 focus:border-transparent transition-all resize-none shadow-sm"
             ></textarea>
             @error('message')
                 <span class="text-xs text-rose-500 mt-1 block">{{ $message }}</span>
@@ -113,7 +113,7 @@
             <button 
                 type="submit" 
                 wire:loading.attr="disabled"
-                class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all duration-200 cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed group"
+                class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-gradient-to-r from-[#022c22] via-[#064e3b] to-[#047857] hover:from-[#064e3b] hover:via-[#047857] hover:to-[#059669] text-white font-semibold text-sm shadow-lg shadow-emerald-950/25 hover:shadow-emerald-600/35 border border-emerald-500/30 transition-all duration-200 cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed group"
             >
                 <!-- Normal State -->
                 <span wire:loading.remove wire:target="submit" class="inline-flex items-center space-x-2">
