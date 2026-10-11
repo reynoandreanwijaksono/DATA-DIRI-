@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -44,13 +45,18 @@
         window.toggleTheme = function() {
             const isDark = document.documentElement.classList.toggle('dark');
             localStorage.setItem('theme', isDark ? 'dark' : 'light');
-            window.dispatchEvent(new CustomEvent('theme-changed', { detail: { isDark } }));
+            window.dispatchEvent(new CustomEvent('theme-changed', {
+                detail: {
+                    isDark
+                }
+            }));
         };
     </script>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
 </head>
+
 <body class="bg-[#F7FAF8] dark:bg-[#051022] text-slate-900 dark:text-slate-100 font-sans antialiased selection:bg-emerald-900 selection:text-emerald-100 transition-colors duration-300 min-h-screen flex flex-col">
 
     <!-- Navbar Component -->
@@ -195,10 +201,14 @@
                     window.removeEventListener('scroll', activeScrollListener);
                 }
                 activeScrollListener = highlightNav;
-                window.addEventListener('scroll', highlightNav, { passive: true });
+                window.addEventListener('scroll', highlightNav, {
+                    passive: true
+                });
                 window.addEventListener('resize', () => {
                     if (currentActiveLink) moveLiquidPillTo(currentActiveLink, true);
-                }, { passive: true });
+                }, {
+                    passive: true
+                });
 
                 // Initial position after render
                 setTimeout(() => {
@@ -230,4 +240,5 @@
         })();
     </script>
 </body>
+
 </html>
