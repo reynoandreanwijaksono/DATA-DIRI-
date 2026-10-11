@@ -1,11 +1,12 @@
 /**
- * Interactive Background Sparks & Embers Engine (Canvas 2D)
+ * Interactive Liquid Water Ripples & Droplets Engine (Canvas 2D)
  * Built for Reyno Andrean Wijaksono Portfolio Hero Banner Background
- * Refined: Ultra-smooth, silky stardust trail with tight clustering (tidak berpencar)
- * and elegant, organic fading physics.
+ * Theme-aware:
+ *   - Light Mode: Molten Gold & Warm Amber Liquid Water Ripples and 3D Translucent Droplets
+ *   - Dark Mode: Aquamarine & Mint-Emerald Dewdrop Ripples and Luminous Liquid Beads
  */
 
-(function initBackgroundSparks() {
+(function initWaterCanvas() {
     if (typeof window === 'undefined') return;
 
     let canvas = null;
@@ -15,63 +16,132 @@
     let height = 0;
     let dpr = 1;
 
-    let sparks = [];
-    let ambientParticles = [];
-    const MAX_SPARKS = 220;
-    const AMBIENT_COUNT = 45;
+    let ripples = [];
+    let droplets = [];
+    let ambientDroplets = [];
+
+    const MAX_RIPPLES = 85;
+    const MAX_DROPLETS = 120;
+    const AMBIENT_COUNT = 38;
 
     let mouse = { x: -1000, y: -1000, active: false };
     let lastMouse = { x: -1000, y: -1000 };
-    let lastSpawnTime = 0;
+    let lastRippleTime = 0;
+    let lastDropletTime = 0;
 
-    const DARK_SPARK_COLORS = [
-        '#34d399', // bright emerald
-        '#10b981', // emerald
-        '#6ee7b7', // soft mint
-        '#a7f3d0', // pale mint glow
-        '#2dd4bf', // vibrant teal
-        '#5eead4', // luminous cyan-mint
-        '#fef08a', // warm golden spark
-        '#ffffff'  // white-hot core spark
-    ];
-
-    const LUX_GOLD_SPARK_COLORS = [
-        '#D4AF37', // Primary Gold
-        '#F1D27A', // Soft Gold
-        '#FF8C42', // Orange Accent
-        '#FFAE42', // Warm Amber
-        '#E5C158', // Rich Gold
-        '#FF9F4A', // Soft Orange
-        '#FFF3D0', // Warm Pale Glow
-        '#ffffff'  // White-hot core spark
-    ];
-
-    function getSparkColors() {
+    function getThemeColors() {
         const isDark = document.documentElement.classList.contains('dark');
-        return isDark ? DARK_SPARK_COLORS : LUX_GOLD_SPARK_COLORS;
+        if (isDark) {
+            return {
+                isDark: true,
+                primaryRgb: '52, 211, 153',   // bright emerald
+                secondaryRgb: '45, 212, 191', // vibrant teal
+                accentRgb: '167, 243, 208',   // soft pale mint
+                deepRgb: '16, 185, 129',      // rich emerald
+                glow: '#10b981',
+                specular: 'rgba(255, 255, 255, 0.95)'
+            };
+        } else {
+            return {
+                isDark: false,
+                primaryRgb: '212, 175, 55',   // primary gold
+                secondaryRgb: '255, 140, 66',  // orange/amber accent
+                accentRgb: '241, 210, 122',   // soft gold
+                deepRgb: '185, 130, 20',      // rich deep amber
+                glow: '#D4AF37',
+                specular: 'rgba(255, 255, 255, 0.95)'
+            };
+        }
     }
 
-    class Spark {
-        constructor(x, y, vx, vy, isBurst = false) {
+    /**
+     * Circular Water Ripple Wave (Riak Gelombang Air)
+     */
+    class WaterRipple {
+        constructor(x, y, maxRadius = 48, speed = 1.4, maxAlpha = 0.55, isImpact = false) {
+            this.x = x;
+            this.y = y;
+            this.radius = isImpact ? 4 : 2;
+            this.maxRadius = maxRadius;
+            this.speed = speed;
+            this.currentSpeed = speed;
+            this.maxAlpha = maxAlpha;
+            this.life = 1.0;
+            // Slower decay for fluid wave expansion
+            this.decay = isImpact ? 0.012 : 0.016;
+            this.isImpact = isImpact;
+            this.waveWidth = isImpact ? 2.6 : 1.8;
+        }
+
+        update() {
+            this.radius += this.currentSpeed;
+            // Fluid deceleration as ripple ring expands
+            this.currentSpeed = Math.max(0.4, this.currentSpeed * 0.985);
+            this.life -= this.decay;
+        }
+
+        draw(ctx, colors) {
+            if (this.life <= 0) return;
+
+            // Smooth sinusoidal opacity curve (fades in, peaks, fades away seamlessly)
+            const progress = 1 - this.life;
+            const alpha = Math.sin(this.life * Math.PI) * this.maxAlpha;
+            if (alpha <= 0.005) return;
+
+            ctx.save();
+
+            // 1. Primary Outer Crest Wave Ring
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, Math.max(0.1, this.radius), 0, Math.PI * 2);
+            ctx.strokeStyle = `rgba(${colors.primaryRgb}, ${alpha.toFixed(3)})`;
+            ctx.lineWidth = Math.max(0.6, this.waveWidth * (1 - progress * 0.65));
+            ctx.shadowColor = colors.glow;
+            ctx.shadowBlur = this.isImpact ? 14 : 7;
+            ctx.stroke();
+
+            // 2. Secondary Inner Refraction Trough (creates 3D water surface distortion)
+            if (this.radius > 5) {
+                const innerRadius = this.radius - (this.isImpact ? 4.5 : 3.0);
+                if (innerRadius > 0.5) {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, innerRadius, 0, Math.PI * 2);
+                    ctx.strokeStyle = `rgba(${colors.secondaryRgb}, ${(alpha * 0.45).toFixed(3)})`;
+                    ctx.lineWidth = Math.max(0.4, (this.waveWidth * 0.6) * (1 - progress * 0.5));
+                    ctx.shadowBlur = 3;
+                    ctx.stroke();
+                }
+            }
+
+            // 3. Central liquid shimmer on impact
+            if (this.isImpact && progress < 0.35) {
+                const coreAlpha = (1 - progress / 0.35) * 0.25;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, Math.max(0.1, this.radius * 0.4), 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(${colors.accentRgb}, ${coreAlpha.toFixed(3)})`;
+                ctx.fill();
+            }
+
+            ctx.restore();
+        }
+    }
+
+    /**
+     * 3D Water Droplet Bead (Tetesan Embun Cair dengan Pantulan Cahaya)
+     */
+    class WaterDroplet {
+        constructor(x, y, vx, vy, isSplash = false) {
             this.x = x;
             this.y = y;
             this.vx = vx;
             this.vy = vy;
-            const colors = getSparkColors();
-            this.color = colors[Math.floor(Math.random() * colors.length)];
-            
-            // Refined, delicate size for stardust look
-            this.size = Math.random() * 1.6 + (isBurst ? 1.4 : 0.9);
-            this.initialSize = this.size;
+            // Realistic fluid droplet sizes
+            this.radius = isSplash ? (Math.random() * 2.2 + 1.2) : (Math.random() * 2.8 + 1.4);
+            this.initialRadius = this.radius;
             this.life = 1.0;
-            
-            // Smooth, gradual decay for fluid dissipation
-            this.decay = Math.random() * 0.016 + (isBurst ? 0.022 : 0.018);
-            
-            // Smooth damping: slows down gently without flying far
-            this.friction = isBurst ? 0.91 : 0.94;
-            // Slight natural upward drift / buoyancy
-            this.buoyancy = 0.018;
+            this.decay = isSplash ? (Math.random() * 0.018 + 0.016) : (Math.random() * 0.014 + 0.012);
+            // High fluid retention friction
+            this.friction = isSplash ? 0.92 : 0.95;
+            this.isSplash = isSplash;
         }
 
         update() {
@@ -79,48 +149,69 @@
             this.y += this.vy;
 
             this.vx *= this.friction;
-            this.vy = (this.vy * this.friction) - this.buoyancy;
+            this.vy *= this.friction;
 
+            // Slight surface tension pull
             this.life -= this.decay;
         }
 
-        draw(ctx) {
+        draw(ctx, colors) {
             if (this.life <= 0) return;
 
-            ctx.save();
-            // Smooth quadratic fade curve for ultra-soft disappearance
-            const opacity = Math.sin(this.life * Math.PI * 0.5);
-            ctx.globalAlpha = Math.max(0, Math.min(1, opacity));
-            ctx.fillStyle = this.color;
-            ctx.shadowColor = this.color;
-            ctx.shadowBlur = 8;
+            const progress = 1 - this.life;
+            const alpha = Math.sin(this.life * Math.PI * 0.5);
+            const currentR = Math.max(0.3, this.radius * (1 - progress * 0.4));
 
-            const currentSize = Math.max(0.2, this.initialSize * opacity);
+            ctx.save();
+
+            // 1. 3D Radial liquid gradient body
+            const grad = ctx.createRadialGradient(
+                this.x - currentR * 0.35, this.y - currentR * 0.35, currentR * 0.08,
+                this.x, this.y, currentR
+            );
+            grad.addColorStop(0, `rgba(${colors.accentRgb}, ${(alpha * 0.9).toFixed(3)})`);
+            grad.addColorStop(0.55, `rgba(${colors.primaryRgb}, ${(alpha * 0.65).toFixed(3)})`);
+            grad.addColorStop(1, `rgba(${colors.deepRgb}, ${(alpha * 0.25).toFixed(3)})`);
+
             ctx.beginPath();
-            ctx.arc(this.x, this.y, currentSize, 0, Math.PI * 2);
+            ctx.arc(this.x, this.y, currentR, 0, Math.PI * 2);
+            ctx.fillStyle = grad;
+            ctx.shadowColor = colors.glow;
+            ctx.shadowBlur = 6;
+            ctx.fill();
+
+            // 2. Liquid Surface Specular Highlight Glint (Glossy Water Shine)
+            const specR = Math.max(0.4, currentR * 0.32);
+            ctx.beginPath();
+            ctx.arc(this.x - currentR * 0.35, this.y - currentR * 0.35, specR, 0, Math.PI * 2);
+            ctx.fillStyle = colors.specular;
+            ctx.shadowBlur = 2;
             ctx.fill();
 
             ctx.restore();
         }
     }
 
-    class AmbientEmber {
+    /**
+     * Ambient Floating Liquid Dewdrop (Tetesan Embun Melayang Halus di Background)
+     */
+    class AmbientDewdrop {
         constructor() {
             this.reset(true);
         }
 
         reset(initial = false) {
             this.x = Math.random() * width;
-            this.y = initial ? Math.random() * height : height + 10;
-            this.vx = (Math.random() - 0.5) * 0.35;
-            this.vy = -(Math.random() * 0.45 + 0.15); // gentle upward float
-            this.size = Math.random() * 1.6 + 0.6;
+            this.y = initial ? Math.random() * height : height + 15;
+            this.vx = (Math.random() - 0.5) * 0.3;
+            this.vy = -(Math.random() * 0.4 + 0.15); // gentle upward fluid drift
+            this.radius = Math.random() * 2.2 + 0.9;
             this.baseAlpha = Math.random() * 0.35 + 0.12;
             this.alpha = this.baseAlpha;
-            const colors = getSparkColors();
-            this.color = colors[Math.floor(Math.random() * (colors.length - 1))];
-            this.pulseSpeed = Math.random() * 0.02 + 0.008;
+            this.pulseSpeed = Math.random() * 0.025 + 0.01;
             this.pulseAngle = Math.random() * Math.PI * 2;
+            this.wobbleAngle = Math.random() * Math.PI * 2;
+            this.wobbleSpeed = Math.random() * 0.03 + 0.015;
         }
 
         update() {
@@ -128,36 +219,63 @@
             this.y += this.vy;
 
             this.pulseAngle += this.pulseSpeed;
-            this.alpha = this.baseAlpha + Math.sin(this.pulseAngle) * 0.12;
+            this.wobbleAngle += this.wobbleSpeed;
+            this.alpha = this.baseAlpha + Math.sin(this.pulseAngle) * 0.1;
 
-            // Gentle, smooth reaction when cursor is near
+            // Elastic fluid reaction when mouse passes by (water surface tension ripple)
             if (mouse.active) {
                 const dx = this.x - mouse.x;
                 const dy = this.y - mouse.y;
                 const dist = Math.hypot(dx, dy);
-                if (dist < 110 && dist > 0) {
-                    const force = (110 - dist) / 110;
-                    this.x += (dx / dist) * force * 1.2;
-                    this.y += (dy / dist) * force * 1.2;
-                    this.alpha = Math.min(0.8, this.alpha + force * 0.3);
+                if (dist < 130 && dist > 0) {
+                    const force = (130 - dist) / 130;
+                    this.x += (dx / dist) * force * 1.5;
+                    this.y += (dy / dist) * force * 1.5;
+                    this.alpha = Math.min(0.85, this.alpha + force * 0.35);
                 }
             }
 
-            if (this.y < -15 || this.x < -15 || this.x > width + 15) {
+            if (this.y < -20 || this.x < -20 || this.x > width + 20) {
                 this.reset(false);
             }
         }
 
-        draw(ctx) {
+        draw(ctx, colors) {
             if (this.alpha <= 0) return;
+
             ctx.save();
             ctx.globalAlpha = Math.max(0, Math.min(1, this.alpha));
-            ctx.fillStyle = this.color;
-            ctx.shadowColor = this.color;
-            ctx.shadowBlur = 6;
+
+            // Slight organic fluid shape wobble
+            const wobbleX = 1 + Math.sin(this.wobbleAngle) * 0.1;
+            const wobbleY = 1 + Math.cos(this.wobbleAngle) * 0.1;
+
+            const grad = ctx.createRadialGradient(
+                this.x - this.radius * 0.3, this.y - this.radius * 0.3, this.radius * 0.1,
+                this.x, this.y, this.radius
+            );
+            grad.addColorStop(0, `rgba(${colors.accentRgb}, 0.85)`);
+            grad.addColorStop(0.6, `rgba(${colors.primaryRgb}, 0.5)`);
+            grad.addColorStop(1, `rgba(${colors.secondaryRgb}, 0.15)`);
+
+            ctx.save();
+            ctx.translate(this.x, this.y);
+            ctx.scale(wobbleX, wobbleY);
             ctx.beginPath();
-            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.arc(0, 0, this.radius, 0, Math.PI * 2);
+            ctx.fillStyle = grad;
+            ctx.shadowColor = colors.glow;
+            ctx.shadowBlur = 6;
             ctx.fill();
+
+            // Specular glint
+            ctx.beginPath();
+            ctx.arc(-this.radius * 0.32, -this.radius * 0.32, Math.max(0.4, this.radius * 0.3), 0, Math.PI * 2);
+            ctx.fillStyle = colors.specular;
+            ctx.shadowBlur = 2;
+            ctx.fill();
+            ctx.restore();
+
             ctx.restore();
         }
     }
@@ -181,53 +299,85 @@
             ctx.scale(dpr, dpr);
         }
 
-        if (ambientParticles.length === 0) {
+        if (ambientDroplets.length === 0) {
             for (let i = 0; i < AMBIENT_COUNT; i++) {
-                ambientParticles.push(new AmbientEmber());
+                ambientDroplets.push(new AmbientDewdrop());
             }
         }
     }
 
-    // Smooth, tightly clustered stardust trail (tidak berpencar)
-    function spawnMovementSparks(x, y, deltaX, deltaY, speed) {
+    /**
+     * Spawn smooth flowing water ripples along the movement path
+     */
+    function spawnMovementRipples(x, y, deltaX, deltaY, speed) {
         const dist = Math.hypot(deltaX, deltaY);
-        // Interpolate points along the movement path to prevent gaps during fast cursor sweeps
-        const steps = Math.min(5, Math.max(1, Math.floor(dist / 9)));
-        
-        for (let s = 0; s <= steps; s++) {
-            const t = s / steps;
-            const interX = lastMouse.x + deltaX * t;
-            const interY = lastMouse.y + deltaY * t;
+        const now = performance.now();
 
-            // Tightly bound around cursor path (max 2.5 - 4.5px offset, no wide scattering)
-            const spreadRadius = Math.random() * 3.5;
-            const spreadAngle = Math.random() * Math.PI * 2;
-            const spawnX = interX + Math.cos(spreadAngle) * spreadRadius;
-            const spawnY = interY + Math.sin(spreadAngle) * spreadRadius;
+        // 1. Smooth expanding water ripples (every 14-20px along path)
+        if (now - lastRippleTime > 38 && dist > 3.0) {
+            lastRippleTime = now;
+            if (ripples.length >= MAX_RIPPLES) ripples.shift();
 
-            // Gentle backward flowing motion that softly follows cursor trail
-            const vx = (-deltaX * 0.05) + (Math.random() - 0.5) * 0.4;
-            const vy = (-deltaY * 0.05) + (Math.random() - 0.5) * 0.4 - 0.1;
+            // Fluid ripple size scales slightly with movement speed
+            const maxRadius = Math.min(55, Math.max(26, speed * 1.5 + 24));
+            const waveSpeed = Math.min(1.8, Math.max(0.9, speed * 0.06 + 0.95));
+            const alpha = Math.min(0.55, Math.max(0.25, speed * 0.03 + 0.3));
 
-            if (sparks.length >= MAX_SPARKS) {
-                sparks.shift();
+            ripples.push(new WaterRipple(x, y, maxRadius, waveSpeed, alpha, false));
+        }
+
+        // 2. Micro liquid droplets bead along the cursor wake (tidak berpencar, menempel rapat)
+        if (now - lastDropletTime > 24) {
+            lastDropletTime = now;
+            const steps = Math.min(3, Math.max(1, Math.floor(dist / 14)));
+
+            for (let s = 0; s < steps; s++) {
+                if (droplets.length >= MAX_DROPLETS) droplets.shift();
+
+                const t = s / steps;
+                const interX = lastMouse.x + deltaX * t;
+                const interY = lastMouse.y + deltaY * t;
+
+                // Tightly clustered offset (max 2 - 3.5px from line)
+                const offsetDist = Math.random() * 3.0;
+                const offsetAngle = Math.random() * Math.PI * 2;
+                const spawnX = interX + Math.cos(offsetAngle) * offsetDist;
+                const spawnY = interY + Math.sin(offsetAngle) * offsetDist;
+
+                // Subtle fluid trailing motion
+                const vx = (-deltaX * 0.04) + (Math.random() - 0.5) * 0.3;
+                const vy = (-deltaY * 0.04) + (Math.random() - 0.5) * 0.3;
+
+                droplets.push(new WaterDroplet(spawnX, spawnY, vx, vy, false));
             }
-            sparks.push(new Spark(spawnX, spawnY, vx, vy, false));
         }
     }
 
-    // Elegant, compact click shimmer burst (gentle halo, not scattering widely)
-    function spawnBurst(x, y, count = 22) {
-        for (let i = 0; i < count; i++) {
-            if (sparks.length >= MAX_SPARKS) {
-                sparks.shift();
-            }
+    /**
+     * Water Drop Splash Impact on Click (Tetes Air Jatuh & Riak Konsentris)
+     */
+    function spawnWaterDropImpact(x, y) {
+        // Multi-harmonic concentric water ripple rings
+        const harmonicDelays = [0, 90, 180];
+        harmonicDelays.forEach((delay, idx) => {
+            setTimeout(() => {
+                if (ripples.length >= MAX_RIPPLES) ripples.shift();
+                const maxRadius = 90 + idx * 28;
+                const speed = 2.0 - idx * 0.3;
+                const alpha = 0.65 - idx * 0.12;
+                ripples.push(new WaterRipple(x, y, maxRadius, speed, alpha, true));
+            }, delay);
+        });
+
+        // 12-16 soft liquid splash droplets that bounce outward and settle
+        const splashCount = 14;
+        for (let i = 0; i < splashCount; i++) {
+            if (droplets.length >= MAX_DROPLETS) droplets.shift();
             const angle = Math.random() * Math.PI * 2;
-            // Compact speed: 1.2 to 2.8px, stops gently and fades in place
-            const speed = Math.random() * 1.8 + 1.2;
+            const speed = Math.random() * 2.2 + 0.8;
             const vx = Math.cos(angle) * speed;
             const vy = Math.sin(angle) * speed;
-            sparks.push(new Spark(x, y, vx, vy, true));
+            droplets.push(new WaterDroplet(x, y, vx, vy, true));
         }
     }
 
@@ -236,20 +386,33 @@
 
         ctx.clearRect(0, 0, width, height);
 
-        // 1. Draw ambient floating embers
-        for (let i = 0; i < ambientParticles.length; i++) {
-            ambientParticles[i].update();
-            ambientParticles[i].draw(ctx);
+        const colors = getThemeColors();
+
+        // 1. Draw Ambient Dewdrops in background
+        for (let i = 0; i < ambientDroplets.length; i++) {
+            ambientDroplets[i].update();
+            ambientDroplets[i].draw(ctx, colors);
         }
 
-        // 2. Draw smooth active sparks
-        for (let i = sparks.length - 1; i >= 0; i--) {
-            const spark = sparks[i];
-            spark.update();
-            if (spark.life <= 0) {
-                sparks.splice(i, 1);
+        // 2. Draw Concentric Water Waves & Ripples
+        for (let i = ripples.length - 1; i >= 0; i--) {
+            const ripple = ripples[i];
+            ripple.update();
+            if (ripple.life <= 0) {
+                ripples.splice(i, 1);
             } else {
-                spark.draw(ctx);
+                ripple.draw(ctx, colors);
+            }
+        }
+
+        // 3. Draw Water Droplets / Beads along cursor wake
+        for (let i = droplets.length - 1; i >= 0; i--) {
+            const droplet = droplets[i];
+            droplet.update();
+            if (droplet.life <= 0) {
+                droplets.splice(i, 1);
+            } else {
+                droplet.draw(ctx, colors);
             }
         }
 
@@ -276,12 +439,9 @@
                 const deltaX = x - lastMouse.x;
                 const deltaY = y - lastMouse.y;
                 const speed = Math.hypot(deltaX, deltaY);
-                const now = performance.now();
 
-                // Smoothly spawn stardust trail when moving
-                if (speed > 1.2 && now - lastSpawnTime > 16) {
-                    lastSpawnTime = now;
-                    spawnMovementSparks(x, y, deltaX, deltaY, speed);
+                if (speed > 1.0) {
+                    spawnMovementRipples(x, y, deltaX, deltaY, speed);
                 }
             }
 
@@ -309,7 +469,7 @@
         const y = e.clientY - rect.top;
 
         if (x >= 0 && x <= rect.width && y >= 0 && y <= rect.height) {
-            spawnBurst(x, y, 22);
+            spawnWaterDropImpact(x, y);
         }
     }
 
@@ -351,7 +511,8 @@
         window.removeEventListener('resize', resize);
         window.removeEventListener('mousemove', onPointerMove);
         window.removeEventListener('mouseleave', onPointerLeave);
-        sparks = [];
+        ripples = [];
+        droplets = [];
     }
 
     if (document.readyState === 'loading') {
