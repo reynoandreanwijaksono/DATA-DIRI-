@@ -34,12 +34,16 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- Dark Mode Initializer Script (Zero Flash) -->
+    <!-- Theme Initializer Script (Zero Flash) -->
     <script>
-        if (localStorage.getItem('theme') === 'light') {
+        if (!localStorage.getItem('lux_theme_v2')) {
+            localStorage.setItem('lux_theme_v2', '1');
+            localStorage.setItem('theme', 'light');
             document.documentElement.classList.remove('dark');
-        } else {
+        } else if (localStorage.getItem('theme') === 'dark') {
             document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
         }
 
         window.toggleTheme = function() {
@@ -55,6 +59,7 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
+    @livewireScripts
 </head>
 
 <body class="bg-[#0B0B0D] dark:bg-[#051022] text-[#F5F5F5] dark:text-slate-100 font-sans antialiased selection:bg-[#D4AF37] selection:text-[#0B0B0D] dark:selection:bg-emerald-900 dark:selection:text-emerald-100 transition-colors duration-300 min-h-screen flex flex-col">
@@ -69,8 +74,6 @@
 
     <!-- Footer Component -->
     <x-footer />
-
-    @livewireScripts
 
     <!-- Turbo & Navigation Lifecycle Handler with Liquid Glass Transitions -->
     <script>
@@ -223,11 +226,6 @@
             // Runs on initial page load and every subsequent Turbo Drive visit
             document.addEventListener('turbo:load', () => {
                 initLiquidNav();
-
-                // Reconnect Livewire if present
-                if (window.Livewire && typeof window.Livewire.rescan === 'function') {
-                    window.Livewire.rescan();
-                }
             });
 
             // Ensure clean state before Turbo caches DOM snapshot

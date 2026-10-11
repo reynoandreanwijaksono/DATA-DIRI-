@@ -2,7 +2,7 @@
     <div class="max-w-6xl mx-auto">
         <!-- Liquid Glass Glowing Outer Border Wrapper -->
         <div class="liquid-glass-wrapper">
-            <nav class="liquid-glass-nav relative flex items-center justify-between px-5 py-3 rounded-full">
+            <nav class="liquid-glass-nav relative flex items-center justify-between px-5 py-3 rounded-full" data-turbo="false">
 
                 <!-- Liquid Glass Internal Animated Fluids & Specular Sheen -->
                 <div class="absolute inset-0 overflow-hidden pointer-events-none rounded-full" aria-hidden="true">
@@ -82,7 +82,7 @@
         </div>
 
         <!-- Mobile Drawer Menu with Liquid Glass Styling -->
-        <div id="mobile-drawer" class="hidden md:hidden mt-2 p-4 rounded-2xl liquid-glass-drawer transition-all duration-300">
+        <div id="mobile-drawer" class="hidden md:hidden mt-2 p-4 rounded-2xl liquid-glass-drawer transition-all duration-300" data-turbo="false">
             <!-- Subtle internal liquid sheen for mobile drawer -->
             <div class="absolute inset-0 overflow-hidden pointer-events-none rounded-2xl" aria-hidden="true">
                 <div class="liquid-sheen"></div>

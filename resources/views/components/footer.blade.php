@@ -74,7 +74,7 @@
             </div>
 
             <!-- Quick Nav & Back to Top -->
-            <div class="flex items-center space-x-4">
+            <div class="flex items-center space-x-4" data-turbo="false">
                 <a href="{{ url('/#home') }}" class="hover:text-[#D4AF37] dark:hover:text-emerald-400 transition-colors">Home</a>
                 <a href="{{ url('/#about') }}" class="hover:text-[#D4AF37] dark:hover:text-emerald-400 transition-colors">About</a>
                 <a href="{{ url('/#skills') }}" class="hover:text-[#D4AF37] dark:hover:text-emerald-400 transition-colors">Skills</a>
