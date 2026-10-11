@@ -1,7 +1,8 @@
 /**
  * Interactive Background Sparks & Embers Engine (Canvas 2D)
  * Built for Reyno Andrean Wijaksono Portfolio Hero Banner Background
- * Enhanced: Extra wide spark dispersion, extended travel distance, and zero intrusive cursor spotlights.
+ * Refined: Ultra-smooth, silky stardust trail with tight clustering (tidak berpencar)
+ * and elegant, organic fading physics.
  */
 
 (function initBackgroundSparks() {
@@ -16,8 +17,8 @@
 
     let sparks = [];
     let ambientParticles = [];
-    const MAX_SPARKS = 350;
-    const AMBIENT_COUNT = 65;
+    const MAX_SPARKS = 220;
+    const AMBIENT_COUNT = 45;
 
     let mouse = { x: -1000, y: -1000, active: false };
     let lastMouse = { x: -1000, y: -1000 };
@@ -40,7 +41,7 @@
         '#FF8C42', // Orange Accent
         '#FFAE42', // Warm Amber
         '#E5C158', // Rich Gold
-        '#FF9F4A', // Vibrant Orange
+        '#FF9F4A', // Soft Orange
         '#FFF3D0', // Warm Pale Glow
         '#ffffff'  // White-hot core spark
     ];
@@ -58,57 +59,46 @@
             this.vy = vy;
             const colors = getSparkColors();
             this.color = colors[Math.floor(Math.random() * colors.length)];
-            // Varied sizes from tiny sharp sparks to glowing embers
-            this.size = Math.random() * 2.8 + (isBurst ? 1.6 : 1.0);
+            
+            // Refined, delicate size for stardust look
+            this.size = Math.random() * 1.6 + (isBurst ? 1.4 : 0.9);
             this.initialSize = this.size;
-            this.alpha = 1;
-            // Slower decay for much longer flight distance and wider area of effect
-            this.decay = Math.random() * 0.012 + (isBurst ? 0.010 : 0.014);
-            // Higher retention friction so sparks glide far across background
-            this.friction = 0.965;
-            this.gravity = 0.035;
-            this.prevX = x;
-            this.prevY = y;
+            this.life = 1.0;
+            
+            // Smooth, gradual decay for fluid dissipation
+            this.decay = Math.random() * 0.016 + (isBurst ? 0.022 : 0.018);
+            
+            // Smooth damping: slows down gently without flying far
+            this.friction = isBurst ? 0.91 : 0.94;
+            // Slight natural upward drift / buoyancy
+            this.buoyancy = 0.018;
         }
 
         update() {
-            this.prevX = this.x;
-            this.prevY = this.y;
-
             this.x += this.vx;
             this.y += this.vy;
 
             this.vx *= this.friction;
-            this.vy = (this.vy * this.friction) + this.gravity;
+            this.vy = (this.vy * this.friction) - this.buoyancy;
 
-            this.alpha -= this.decay;
-            this.size = Math.max(0.1, this.initialSize * (this.alpha));
+            this.life -= this.decay;
         }
 
         draw(ctx) {
-            if (this.alpha <= 0) return;
+            if (this.life <= 0) return;
 
             ctx.save();
-            ctx.globalAlpha = Math.max(0, Math.min(1, this.alpha));
+            // Smooth quadratic fade curve for ultra-soft disappearance
+            const opacity = Math.sin(this.life * Math.PI * 0.5);
+            ctx.globalAlpha = Math.max(0, Math.min(1, opacity));
             ctx.fillStyle = this.color;
             ctx.shadowColor = this.color;
-            ctx.shadowBlur = 12;
+            ctx.shadowBlur = 8;
 
-            // Draw streak trail if moving fast, else circular spark
-            const speed = Math.hypot(this.x - this.prevX, this.y - this.prevY);
-            if (speed > 1.2) {
-                ctx.beginPath();
-                ctx.strokeStyle = this.color;
-                ctx.lineWidth = Math.max(0.8, this.size);
-                ctx.lineCap = 'round';
-                ctx.moveTo(this.prevX, this.prevY);
-                ctx.lineTo(this.x, this.y);
-                ctx.stroke();
-            } else {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
+            const currentSize = Math.max(0.2, this.initialSize * opacity);
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, currentSize, 0, Math.PI * 2);
+            ctx.fill();
 
             ctx.restore();
         }
@@ -121,15 +111,15 @@
 
         reset(initial = false) {
             this.x = Math.random() * width;
-            this.y = initial ? Math.random() * height : height + 15;
-            this.vx = (Math.random() - 0.5) * 0.6;
-            this.vy = -(Math.random() * 0.7 + 0.2); // float upward across canvas
-            this.size = Math.random() * 2.2 + 0.8;
-            this.baseAlpha = Math.random() * 0.45 + 0.15;
+            this.y = initial ? Math.random() * height : height + 10;
+            this.vx = (Math.random() - 0.5) * 0.35;
+            this.vy = -(Math.random() * 0.45 + 0.15); // gentle upward float
+            this.size = Math.random() * 1.6 + 0.6;
+            this.baseAlpha = Math.random() * 0.35 + 0.12;
             this.alpha = this.baseAlpha;
             const colors = getSparkColors();
             this.color = colors[Math.floor(Math.random() * (colors.length - 1))];
-            this.pulseSpeed = Math.random() * 0.03 + 0.01;
+            this.pulseSpeed = Math.random() * 0.02 + 0.008;
             this.pulseAngle = Math.random() * Math.PI * 2;
         }
 
@@ -138,22 +128,22 @@
             this.y += this.vy;
 
             this.pulseAngle += this.pulseSpeed;
-            this.alpha = this.baseAlpha + Math.sin(this.pulseAngle) * 0.15;
+            this.alpha = this.baseAlpha + Math.sin(this.pulseAngle) * 0.12;
 
-            // Large interactive reaction radius (220px area)
+            // Gentle, smooth reaction when cursor is near
             if (mouse.active) {
                 const dx = this.x - mouse.x;
                 const dy = this.y - mouse.y;
                 const dist = Math.hypot(dx, dy);
-                if (dist < 220 && dist > 0) {
-                    const force = (220 - dist) / 220;
-                    this.x += (dx / dist) * force * 2.8;
-                    this.y += (dy / dist) * force * 2.8;
-                    this.alpha = Math.min(0.95, this.alpha + force * 0.5);
+                if (dist < 110 && dist > 0) {
+                    const force = (110 - dist) / 110;
+                    this.x += (dx / dist) * force * 1.2;
+                    this.y += (dy / dist) * force * 1.2;
+                    this.alpha = Math.min(0.8, this.alpha + force * 0.3);
                 }
             }
 
-            if (this.y < -20 || this.x < -20 || this.x > width + 20) {
+            if (this.y < -15 || this.x < -15 || this.x > width + 15) {
                 this.reset(false);
             }
         }
@@ -164,7 +154,7 @@
             ctx.globalAlpha = Math.max(0, Math.min(1, this.alpha));
             ctx.fillStyle = this.color;
             ctx.shadowColor = this.color;
-            ctx.shadowBlur = 10;
+            ctx.shadowBlur = 6;
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
             ctx.fill();
@@ -198,41 +188,43 @@
         }
     }
 
-    // Wide Area Spark Dispersion
+    // Smooth, tightly clustered stardust trail (tidak berpencar)
     function spawnMovementSparks(x, y, deltaX, deltaY, speed) {
-        // More sparks per stroke for a rich shower effect
-        const count = Math.min(10, Math.max(4, Math.floor(speed * 0.22) + 2));
+        const dist = Math.hypot(deltaX, deltaY);
+        // Interpolate points along the movement path to prevent gaps during fast cursor sweeps
+        const steps = Math.min(5, Math.max(1, Math.floor(dist / 9)));
         
-        for (let i = 0; i < count; i++) {
+        for (let s = 0; s <= steps; s++) {
+            const t = s / steps;
+            const interX = lastMouse.x + deltaX * t;
+            const interY = lastMouse.y + deltaY * t;
+
+            // Tightly bound around cursor path (max 2.5 - 4.5px offset, no wide scattering)
+            const spreadRadius = Math.random() * 3.5;
+            const spreadAngle = Math.random() * Math.PI * 2;
+            const spawnX = interX + Math.cos(spreadAngle) * spreadRadius;
+            const spawnY = interY + Math.sin(spreadAngle) * spreadRadius;
+
+            // Gentle backward flowing motion that softly follows cursor trail
+            const vx = (-deltaX * 0.05) + (Math.random() - 0.5) * 0.4;
+            const vy = (-deltaY * 0.05) + (Math.random() - 0.5) * 0.4 - 0.1;
+
             if (sparks.length >= MAX_SPARKS) {
                 sparks.shift();
             }
-
-            // Scatter velocity backwards + wide radial cone (spanning 360° with directional bias)
-            const baseAngle = Math.atan2(deltaY, deltaX) + Math.PI;
-            const sprayAngle = baseAngle + (Math.random() - 0.5) * 2.5;
-            const spraySpeed = Math.random() * (speed * 0.35 + 5.5) + 2.0;
-            const vx = Math.cos(sprayAngle) * spraySpeed + (Math.random() - 0.5) * 3;
-            const vy = Math.sin(sprayAngle) * spraySpeed + (Math.random() - 0.5) * 3;
-
-            // Wide spawn distribution radius (up to 70px around cursor)
-            const spawnRadius = Math.random() * 45;
-            const spawnAngle = Math.random() * Math.PI * 2;
-            const offsetX = Math.cos(spawnAngle) * spawnRadius;
-            const offsetY = Math.sin(spawnAngle) * spawnRadius;
-
-            sparks.push(new Spark(x + offsetX, y + offsetY, vx, vy, false));
+            sparks.push(new Spark(spawnX, spawnY, vx, vy, false));
         }
     }
 
-    // Wide Click Burst (45+ sparks radiating widely)
-    function spawnBurst(x, y, count = 48) {
+    // Elegant, compact click shimmer burst (gentle halo, not scattering widely)
+    function spawnBurst(x, y, count = 22) {
         for (let i = 0; i < count; i++) {
             if (sparks.length >= MAX_SPARKS) {
                 sparks.shift();
             }
             const angle = Math.random() * Math.PI * 2;
-            const speed = Math.random() * 8.5 + 3.0;
+            // Compact speed: 1.2 to 2.8px, stops gently and fades in place
+            const speed = Math.random() * 1.8 + 1.2;
             const vx = Math.cos(angle) * speed;
             const vy = Math.sin(angle) * speed;
             sparks.push(new Spark(x, y, vx, vy, true));
@@ -244,17 +236,17 @@
 
         ctx.clearRect(0, 0, width, height);
 
-        // 1. Draw ambient embers
+        // 1. Draw ambient floating embers
         for (let i = 0; i < ambientParticles.length; i++) {
             ambientParticles[i].update();
             ambientParticles[i].draw(ctx);
         }
 
-        // 2. Draw active sparks
+        // 2. Draw smooth active sparks
         for (let i = sparks.length - 1; i >= 0; i--) {
             const spark = sparks[i];
             spark.update();
-            if (spark.alpha <= 0) {
+            if (spark.life <= 0) {
                 sparks.splice(i, 1);
             } else {
                 spark.draw(ctx);
@@ -272,10 +264,9 @@
         const clientX = e.clientX;
         const clientY = e.clientY;
 
-        // Expanded active boundary: responds smoothly across entire hero section and margins
-        if (clientY >= rect.top - 50 && clientY <= rect.bottom + 50 && clientX >= rect.left - 50 && clientX <= rect.right + 50) {
-            const x = Math.max(0, Math.min(rect.width, clientX - rect.left));
-            const y = Math.max(0, Math.min(rect.height, clientY - rect.top));
+        if (clientY >= rect.top && clientY <= rect.bottom && clientX >= rect.left && clientX <= rect.right) {
+            const x = clientX - rect.left;
+            const y = clientY - rect.top;
 
             mouse.x = x;
             mouse.y = y;
@@ -287,8 +278,8 @@
                 const speed = Math.hypot(deltaX, deltaY);
                 const now = performance.now();
 
-                // Spawn widespread sparks on movement
-                if (speed > 1.8 && now - lastSpawnTime > 20) {
+                // Smoothly spawn stardust trail when moving
+                if (speed > 1.2 && now - lastSpawnTime > 16) {
                     lastSpawnTime = now;
                     spawnMovementSparks(x, y, deltaX, deltaY, speed);
                 }
@@ -318,7 +309,7 @@
         const y = e.clientY - rect.top;
 
         if (x >= 0 && x <= rect.width && y >= 0 && y <= rect.height) {
-            spawnBurst(x, y, 48);
+            spawnBurst(x, y, 22);
         }
     }
 
