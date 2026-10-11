@@ -27,7 +27,7 @@
     <meta property="twitter:image" content="{{ asset('images/profile.jpg') }}">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%23064e3b'/><text x='48%' y='55%' dominant-baseline='central' text-anchor='middle' font-family='sans-serif' font-weight='800' font-size='42' fill='white'>RA<tspan fill='%2334d399'>.</tspan></text></svg>">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%230B0B0D'/><text x='48%' y='55%' dominant-baseline='central' text-anchor='middle' font-family='sans-serif' font-weight='800' font-size='42' fill='%23F5F5F5'>RA<tspan fill='%23D4AF37'>.</tspan></text></svg>">
 
     <!-- Fonts: Plus Jakarta Sans & Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -57,7 +57,7 @@
     @livewireStyles
 </head>
 
-<body class="bg-[#F7FAF8] dark:bg-[#051022] text-slate-900 dark:text-slate-100 font-sans antialiased selection:bg-emerald-900 selection:text-emerald-100 transition-colors duration-300 min-h-screen flex flex-col">
+<body class="bg-[#0B0B0D] dark:bg-[#051022] text-[#F5F5F5] dark:text-slate-100 font-sans antialiased selection:bg-[#D4AF37] selection:text-[#0B0B0D] dark:selection:bg-emerald-900 dark:selection:text-emerald-100 transition-colors duration-300 min-h-screen flex flex-col">
 
     <!-- Navbar Component -->
     <x-navbar />
@@ -143,15 +143,15 @@
                         navLinks.forEach(link => {
                             const href = link.getAttribute('href') || '';
                             if (href === `#${foundSection}` || (href === '/' && foundSection === 'home') || href.endsWith(`#${foundSection}`)) {
-                                link.classList.add('text-emerald-950', 'dark:text-emerald-300', 'font-bold');
-                                link.classList.remove('text-slate-600', 'dark:text-slate-300');
+                                link.classList.add('text-[#D4AF37]', 'dark:text-emerald-300', 'font-bold');
+                                link.classList.remove('text-[#B8B8BE]', 'dark:text-slate-300');
                                 currentActiveLink = link;
                                 if (!isHovering) {
                                     moveLiquidPillTo(link);
                                 }
                             } else if (href.includes('#')) {
-                                link.classList.remove('text-emerald-950', 'dark:text-emerald-300', 'font-bold');
-                                link.classList.add('text-slate-600', 'dark:text-slate-300');
+                                link.classList.remove('text-[#D4AF37]', 'dark:text-emerald-300', 'font-bold');
+                                link.classList.add('text-[#B8B8BE]', 'dark:text-slate-300');
                             }
                         });
                     }
@@ -179,11 +179,11 @@
 
                         currentActiveLink = link;
                         navLinks.forEach(l => {
-                            l.classList.remove('text-emerald-950', 'dark:text-emerald-300', 'font-bold');
-                            l.classList.add('text-slate-600', 'dark:text-slate-300');
+                            l.classList.remove('text-[#D4AF37]', 'dark:text-emerald-300', 'font-bold');
+                            l.classList.add('text-[#B8B8BE]', 'dark:text-slate-300');
                         });
-                        link.classList.add('text-emerald-950', 'dark:text-emerald-300', 'font-bold');
-                        link.classList.remove('text-slate-600', 'dark:text-slate-300');
+                        link.classList.add('text-[#D4AF37]', 'dark:text-emerald-300', 'font-bold');
+                        link.classList.remove('text-[#B8B8BE]', 'dark:text-slate-300');
                         moveLiquidPillTo(link, false);
                     });
                 });

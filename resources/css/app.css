@@ -6,6 +6,19 @@
 @theme {
     --font-sans: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
+    /* Luxury Black, Gold & Orange Theme Palette (Light Mode redesign) */
+    --color-lux-black: #0B0B0D;
+    --color-lux-secondary: #141416;
+    --color-lux-card: #1C1C1F;
+    --color-lux-elevated: #242428;
+    --color-lux-gold: #D4AF37;
+    --color-lux-gold-soft: #F1D27A;
+    --color-lux-orange: #FF8C42;
+    --color-lux-text: #F5F5F5;
+    --color-lux-text-secondary: #B8B8BE;
+    --color-lux-text-muted: #85858E;
+    --color-lux-border: rgba(212, 175, 55, 0.22);
+
     --color-brand-50: #f0fdf4;
     --color-brand-100: #dcfce7;
     --color-brand-200: #bbf7d0;
@@ -40,17 +53,19 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #cbd5e1;
+    background: #242428;
+    border: 1px solid rgba(212, 175, 55, 0.25);
     border-radius: 9999px;
 }
 
 .dark ::-webkit-scrollbar-thumb {
     background: #334155;
+    border: none;
 }
 
 /* Glassmorphism & Liquid Glass Utilities */
 .glass-nav {
-    background: rgba(255, 255, 255, 0.85);
+    background: rgba(14, 14, 17, 0.85);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
 }
@@ -71,14 +86,14 @@ html {
     border-radius: 9999px;
     padding: 1.5px;
     background: linear-gradient(120deg,
-            rgba(16, 185, 129, 0.55) 0%,
-            rgba(255, 255, 255, 0.85) 25%,
-            rgba(5, 150, 105, 0.3) 50%,
-            rgba(52, 211, 153, 0.7) 75%,
-            rgba(2, 44, 34, 0.4) 100%);
+            rgba(212, 175, 55, 0.5) 0%,
+            rgba(255, 140, 66, 0.3) 25%,
+            rgba(20, 20, 22, 0.85) 50%,
+            rgba(241, 210, 122, 0.55) 75%,
+            rgba(11, 11, 13, 0.95) 100%);
     background-size: 250% 250%;
     animation: liquid-border 9s ease infinite;
-    box-shadow: 0 10px 30px -10px rgba(2, 44, 34, 0.12), 0 0 20px -3px rgba(16, 185, 129, 0.15);
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.8), 0 0 20px -3px rgba(212, 175, 55, 0.18);
 }
 
 .dark .liquid-glass-wrapper {
@@ -96,14 +111,14 @@ html {
 /* Inner Liquid Glass Capsule */
 .liquid-glass-nav {
     position: relative;
-    background: rgba(255, 255, 255, 0.78);
+    background: rgba(14, 14, 17, 0.88);
     backdrop-filter: blur(18px) saturate(190%);
     -webkit-backdrop-filter: blur(18px) saturate(190%);
     border-radius: 9999px;
     box-shadow:
-        inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.95),
-        inset 0 -1.5px 3px 0 rgba(16, 185, 129, 0.14),
-        0 4px 16px -2px rgba(2, 44, 34, 0.05);
+        inset 0 1.5px 2px 0 rgba(241, 210, 122, 0.22),
+        inset 0 -1.5px 3px 0 rgba(212, 175, 55, 0.15),
+        0 4px 20px -2px rgba(0, 0, 0, 0.7);
     overflow: hidden;
 }
 
@@ -134,28 +149,40 @@ html {
 .liquid-blob-1 {
     width: 150px;
     height: 75px;
-    background: radial-gradient(circle, #34d399 0%, #10b981 60%, transparent 80%);
+    background: radial-gradient(circle, #D4AF37 0%, #FF8C42 60%, transparent 80%);
     top: -25px;
     left: 8%;
     animation: liquid-drift-1 11s ease-in-out infinite alternate;
 }
 
+.dark .liquid-blob-1 {
+    background: radial-gradient(circle, #34d399 0%, #10b981 60%, transparent 80%);
+}
+
 .liquid-blob-2 {
     width: 170px;
     height: 70px;
-    background: radial-gradient(circle, #6ee7b7 0%, #059669 65%, transparent 80%);
+    background: radial-gradient(circle, #F1D27A 0%, #D4AF37 65%, transparent 80%);
     bottom: -25px;
     right: 12%;
     animation: liquid-drift-2 13s ease-in-out infinite alternate;
 }
 
+.dark .liquid-blob-2 {
+    background: radial-gradient(circle, #6ee7b7 0%, #059669 65%, transparent 80%);
+}
+
 .liquid-blob-3 {
     width: 110px;
     height: 55px;
-    background: radial-gradient(circle, #a7f3d0 0%, #047857 70%, transparent 85%);
+    background: radial-gradient(circle, #FF8C42 0%, #8C5A14 70%, transparent 85%);
     top: 0px;
     left: 48%;
     animation: liquid-drift-3 9s ease-in-out infinite alternate;
+}
+
+.dark .liquid-blob-3 {
+    background: radial-gradient(circle, #a7f3d0 0%, #047857 70%, transparent 85%);
 }
 
 /* Sweeping specular light sheen across the curved liquid glass */
@@ -188,13 +215,13 @@ html {
 /* Mobile Drawer Liquid Glass */
 .liquid-glass-drawer {
     position: relative;
-    background: rgba(255, 255, 255, 0.88);
+    background: rgba(20, 20, 22, 0.94);
     backdrop-filter: blur(20px) saturate(190%);
     -webkit-backdrop-filter: blur(20px) saturate(190%);
-    border: 1px solid rgba(16, 185, 129, 0.25);
+    border: 1px solid rgba(212, 175, 55, 0.25);
     box-shadow:
-        0 15px 35px -5px rgba(2, 44, 34, 0.12),
-        inset 0 1px 2px 0 rgba(255, 255, 255, 0.9);
+        0 15px 35px -5px rgba(0, 0, 0, 0.8),
+        inset 0 1px 2px 0 rgba(241, 210, 122, 0.25);
     overflow: hidden;
 }
 
@@ -290,28 +317,28 @@ html {
     border-radius: 9999px;
     pointer-events: none;
     z-index: 5;
-    /* Optical Clear Convex Glass Refraction */
+    /* Optical Clear Convex Glass Refraction - Gold/Orange Caustics */
     background: radial-gradient(ellipse at 35% 20%,
-            rgba(255, 255, 255, 0.6) 0%,
-            rgba(255, 255, 255, 0.2) 30%,
-            rgba(16, 185, 129, 0.08) 65%,
-            rgba(0, 0, 0, 0.2) 100%);
+            rgba(255, 255, 255, 0.4) 0%,
+            rgba(241, 210, 122, 0.25) 30%,
+            rgba(212, 175, 55, 0.15) 65%,
+            rgba(11, 11, 13, 0.5) 100%);
     backdrop-filter: blur(8px) saturate(240%) contrast(112%);
     -webkit-backdrop-filter: blur(8px) saturate(240%) contrast(112%);
 
-    /* 3D Glass Drop Shadow & Prismatic Aberration Caustics */
+    /* 3D Glass Drop Shadow & Golden Caustics */
     box-shadow:
-        0 14px 28px -4px rgba(0, 0, 0, 0.45),
-        0 6px 12px -2px rgba(2, 44, 34, 0.25),
+        0 14px 28px -4px rgba(0, 0, 0, 0.65),
+        0 6px 12px -2px rgba(0, 0, 0, 0.4),
         /* Top specular curved light reflection arc */
-        inset 0 2.5px 3px 0 rgba(255, 255, 255, 0.98),
-        /* Bottom emerald/cyan internal caustic bounce */
-        inset 0 -2.5px 4.5px 0 rgba(0, 245, 255, 0.65),
-        /* Lateral prismatic rainbow dispersion */
-        inset 2.5px 0 5px 0 rgba(255, 230, 0, 0.5),
-        inset -2.5px 0 5px 0 rgba(255, 0, 128, 0.5);
+        inset 0 2.5px 3px 0 rgba(255, 255, 255, 0.95),
+        /* Bottom golden/orange internal caustic bounce */
+        inset 0 -2.5px 4.5px 0 rgba(255, 140, 66, 0.65),
+        /* Lateral golden dispersion */
+        inset 2.5px 0 5px 0 rgba(212, 175, 55, 0.6),
+        inset -2.5px 0 5px 0 rgba(241, 210, 122, 0.5);
 
-    border: 1px solid rgba(255, 255, 255, 0.65);
+    border: 1px solid rgba(212, 175, 55, 0.5);
     transform-origin: center center;
     will-change: left, width, top, height, transform;
     transition: left 0.45s cubic-bezier(0.34, 1.45, 0.64, 1),
@@ -510,18 +537,17 @@ html {
     position: relative;
     border-radius: 1.5rem;
     background: radial-gradient(ellipse at 35% 20%,
-            rgba(255, 255, 255, 0.78) 0%,
-            rgba(255, 255, 255, 0.32) 40%,
-            rgba(240, 253, 244, 0.2) 75%,
-            rgba(0, 0, 0, 0.04) 100%);
+            rgba(36, 36, 40, 0.9) 0%,
+            rgba(28, 28, 31, 0.95) 50%,
+            rgba(11, 11, 13, 0.98) 100%);
     backdrop-filter: blur(14px) saturate(200%);
     -webkit-backdrop-filter: blur(14px) saturate(200%);
-    border: 1.5px solid rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(212, 175, 55, 0.22);
     box-shadow:
-        0 10px 25px -4px rgba(2, 44, 34, 0.08),
-        0 4px 10px -2px rgba(0, 0, 0, 0.04),
-        inset 0 2px 3px 0 rgba(255, 255, 255, 0.95),
-        inset 0 -1.5px 3px 0 rgba(16, 185, 129, 0.12);
+        0 10px 25px -4px rgba(0, 0, 0, 0.6),
+        0 4px 10px -2px rgba(0, 0, 0, 0.3),
+        inset 0 1.5px 2px 0 rgba(241, 210, 122, 0.2),
+        inset 0 -1.5px 3px 0 rgba(0, 0, 0, 0.4);
     transition: all 0.35s cubic-bezier(0.34, 1.4, 0.64, 1);
     overflow: hidden;
 }
@@ -549,8 +575,8 @@ html {
     height: 35%;
     border-radius: 9999px 9999px 50% 50%;
     background: linear-gradient(180deg,
-            rgba(255, 255, 255, 0.85) 0%,
-            rgba(255, 255, 255, 0.15) 60%,
+            rgba(255, 255, 255, 0.5) 0%,
+            rgba(241, 210, 122, 0.15) 60%,
             transparent 100%);
     filter: blur(0.5px);
     pointer-events: none;
@@ -568,11 +594,11 @@ html {
 .skill-glass-tile:hover {
     transform: translateY(-8px) scale(1.04);
     box-shadow:
-        0 20px 35px -6px rgba(0, 0, 0, 0.2),
-        0 0 25px 2px var(--skill-glow, rgba(16, 185, 129, 0.45)),
-        inset 0 2.5px 4px 0 rgba(255, 255, 255, 1),
-        inset 0 -2px 4px 0 var(--skill-glow, rgba(16, 185, 129, 0.35));
-    border-color: var(--skill-color, rgba(52, 211, 153, 0.6));
+        0 20px 35px -6px rgba(0, 0, 0, 0.7),
+        0 0 25px 2px var(--skill-glow, rgba(212, 175, 55, 0.35)),
+        inset 0 2px 3px 0 rgba(241, 210, 122, 0.35),
+        inset 0 -2px 4px 0 var(--skill-glow, rgba(212, 175, 55, 0.25));
+    border-color: var(--skill-color, rgba(212, 175, 55, 0.6));
 }
 
 .dark .skill-glass-tile:hover {
@@ -606,10 +632,25 @@ html {
     left: 210%;
 }
 
-/* Floating 3D Ambient Emerald Orb in Skills Section */
+/* Floating 3D Ambient Emerald/Gold Orb in Skills Section */
 .skill-floating-orb {
     position: absolute;
     border-radius: 9999px;
+    background: radial-gradient(circle at 35% 30%,
+            #F1D27A 0%,
+            #D4AF37 40%,
+            #8C6A18 75%,
+            #141416 100%);
+    box-shadow:
+        0 15px 35px -5px rgba(0, 0, 0, 0.7),
+        0 0 35px 8px rgba(212, 175, 55, 0.35),
+        inset 0 3px 5px rgba(255, 255, 255, 0.6),
+        inset 0 -3px 6px rgba(0, 0, 0, 0.6);
+    animation: orb-float 8s ease-in-out infinite alternate;
+    pointer-events: none;
+}
+
+.dark .skill-floating-orb {
     background: radial-gradient(circle at 35% 30%,
             #6ee7b7 0%,
             #10b981 35%,
@@ -620,8 +661,6 @@ html {
         0 0 35px 8px rgba(16, 185, 129, 0.45),
         inset 0 3px 5px rgba(255, 255, 255, 0.8),
         inset 0 -3px 6px rgba(0, 0, 0, 0.4);
-    animation: orb-float 8s ease-in-out infinite alternate;
-    pointer-events: none;
 }
 
 @keyframes orb-float {
@@ -644,10 +683,10 @@ html {
 }
 
 .skill-filter-btn.active {
-    background: linear-gradient(135deg, #022c22 0%, #064e3b 60%, #047857 100%);
-    color: #ffffff;
-    box-shadow: 0 4px 14px -2px rgba(16, 185, 129, 0.4), inset 0 1px 1.5px rgba(255, 255, 255, 0.5);
-    border-color: rgba(52, 211, 153, 0.4);
+    background: linear-gradient(135deg, #D4AF37 0%, #F1D27A 100%);
+    color: #0B0B0D;
+    box-shadow: 0 4px 14px -2px rgba(212, 175, 55, 0.4), inset 0 1px 1.5px rgba(255, 255, 255, 0.6);
+    border-color: #F1D27A;
 }
 
 .dark .skill-filter-btn.active {
@@ -659,7 +698,8 @@ html {
 
 
 .glass-card {
-    background: rgba(255, 255, 255, 0.7);
+    background: rgba(28, 28, 31, 0.85);
+    border: 1px solid rgba(212, 175, 55, 0.22);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
 }
@@ -682,9 +722,14 @@ html {
 /* Hotwire Turbo Progress Bar */
 .turbo-progress-bar {
     height: 3px;
+    background: linear-gradient(90deg, #D4AF37, #F1D27A, #FF8C42, #D4AF37);
+    box-shadow: 0 0 12px rgba(212, 175, 55, 0.85), 0 0 4px rgba(255, 140, 66, 0.6);
+    z-index: 99999;
+}
+
+.dark .turbo-progress-bar {
     background: linear-gradient(90deg, #064e3b, #10b981, #34d399, #6ee7b7);
     box-shadow: 0 0 12px rgba(16, 185, 129, 0.85), 0 0 4px rgba(52, 211, 153, 0.6);
-    z-index: 99999;
 }
 
 @keyframes turbo-fade-in {

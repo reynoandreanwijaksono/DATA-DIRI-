@@ -1,30 +1,30 @@
 <section id="home" class="relative pt-32 sm:pt-36 lg:pt-40 pb-16 lg:pb-24 overflow-hidden">
-    <!-- Cyber Aurora & Emerald Ribbon Wave Background -->
+    <!-- Cyber Aurora & Luxury Gold/Orange Wave Background -->
     <div class="absolute inset-0 pointer-events-none select-none overflow-hidden z-0">
         <!-- High-res Cyber Aurora Wave Graphic -->
         <img
             src="{{ asset('images/hero-bg-wave.jpg') }}"
             alt="Cyber Aurora Background"
-            class="w-full h-full object-cover object-center sm:object-[center_35%] opacity-40 dark:opacity-85 filter brightness-105 dark:brightness-100 contrast-[1.05] transition-opacity duration-700 scale-105 transform -translate-y-2"
+            class="w-full h-full object-cover object-center sm:object-[center_35%] opacity-25 dark:opacity-85 filter brightness-95 dark:brightness-100 contrast-[1.05] transition-opacity duration-700 scale-105 transform -translate-y-2"
             loading="eager">
 
         <!-- Cyber Dot Matrix Mesh Layer for extra depth -->
-        <div class="absolute inset-0 bg-[radial-gradient(rgba(16,185,129,0.15)_1.2px,transparent_1.2px)] [background-size:28px_28px] [mask-image:radial-gradient(ellipse_80%_60%_at_50%_40%,#000_50%,transparent_100%)] opacity-40 dark:opacity-60"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(rgba(212,175,55,0.12)_1.2px,transparent_1.2px)] dark:bg-[radial-gradient(rgba(16,185,129,0.15)_1.2px,transparent_1.2px)] [background-size:28px_28px] [mask-image:radial-gradient(ellipse_80%_60%_at_50%_40%,#000_50%,transparent_100%)] opacity-40 dark:opacity-60"></div>
 
         <!-- Left Gradient Mask for Text Legibility (Light & Dark) -->
-        <div class="absolute inset-0 bg-gradient-to-r from-[#F7FAF8]/95 via-[#F7FAF8]/80 sm:via-[#F7FAF8]/60 to-transparent dark:from-[#051022]/95 dark:via-[#051022]/75 sm:dark:via-[#051022]/50 dark:to-transparent lg:w-2/3"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-[#0B0B0D]/95 via-[#0B0B0D]/80 sm:via-[#0B0B0D]/60 to-transparent dark:from-[#051022]/95 dark:via-[#051022]/75 sm:dark:via-[#051022]/50 dark:to-transparent lg:w-2/3"></div>
 
         <!-- Top Seamless Fade into Navbar -->
-        <div class="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-[#F7FAF8] dark:from-[#051022] to-transparent"></div>
+        <div class="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-[#0B0B0D] dark:from-[#051022] to-transparent"></div>
 
         <!-- Bottom Seamless Fade into Next Section -->
-        <div class="absolute bottom-0 inset-x-0 h-36 bg-gradient-to-t from-[#F7FAF8] dark:from-[#051022] to-transparent"></div>
+        <div class="absolute bottom-0 inset-x-0 h-36 bg-gradient-to-t from-[#0B0B0D] dark:from-[#051022] to-transparent"></div>
 
         <!-- Interactive Background Sparks Canvas -->
         <canvas id="hero-sparks-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-[1]"></canvas>
 
-        <!-- Subtle Ambient Glow Core (Soft & Deep, Non-intrusive) -->
-        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[450px] h-[450px] bg-gradient-to-tr from-emerald-500/10 via-teal-400/5 to-transparent blur-[140px] rounded-full pointer-events-none opacity-40"></div>
+        <!-- Subtle Ambient Glow Core (Soft Gold/Orange for Light, Emerald for Dark) -->
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[450px] h-[450px] bg-gradient-to-tr from-[#D4AF37]/15 via-[#FF8C42]/10 to-transparent dark:from-emerald-500/10 dark:via-teal-400/5 blur-[140px] rounded-full pointer-events-none opacity-40"></div>
     </div>
 
     <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
@@ -34,31 +34,31 @@
             <div class="lg:col-span-7 flex flex-col items-start space-y-6 text-left">
 
                 <!-- Availability Status Badge -->
-                <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-emerald-50/90 dark:bg-emerald-950/70 border border-emerald-300/80 dark:border-emerald-700/60 text-emerald-950 dark:text-emerald-300 text-xs font-semibold tracking-wide shadow-sm shadow-emerald-500/10 backdrop-blur-md">
-                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_#10b981]"></span>
+                <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-[#1C1C1F]/90 dark:bg-emerald-950/70 border border-[#D4AF37]/30 dark:border-emerald-700/60 text-[#F1D27A] dark:text-emerald-300 text-xs font-semibold tracking-wide shadow-sm shadow-[#D4AF37]/10 backdrop-blur-md">
+                    <span class="w-2.5 h-2.5 rounded-full bg-[#D4AF37] dark:bg-emerald-500 animate-pulse shadow-[0_0_8px_#D4AF37] dark:shadow-[0_0_8px_#10b981]"></span>
                     <span>Siswa PPLG • SMKN 1 Bangsri</span>
                 </div>
 
                 <!-- Main Heading -->
                 <div class="space-y-1">
-                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.12]">
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#F5F5F5] dark:text-white leading-[1.12]">
                         Hi, I'm <br class="hidden sm:inline">
-                        <span class="bg-gradient-to-r from-[#022c22] via-[#064e3b] to-[#059669] bg-clip-text text-transparent dark:from-emerald-400 dark:via-emerald-300 dark:to-teal-300 drop-shadow-sm">Reyno Andrean</span> <br>
-                        <span class="bg-gradient-to-r from-[#022c22] via-[#064e3b] to-[#059669] bg-clip-text text-transparent dark:from-emerald-400 dark:via-emerald-300 dark:to-teal-300 drop-shadow-sm">Wijaksono</span>
+                        <span class="bg-gradient-to-r from-[#D4AF37] via-[#F1D27A] to-[#FF8C42] bg-clip-text text-transparent dark:from-emerald-400 dark:via-emerald-300 dark:to-teal-300 drop-shadow-sm">Reyno Andrean</span> <br>
+                        <span class="bg-gradient-to-r from-[#D4AF37] via-[#F1D27A] to-[#FF8C42] bg-clip-text text-transparent dark:from-emerald-400 dark:via-emerald-300 dark:to-teal-300 drop-shadow-sm">Wijaksono</span>
                     </h1>
                 </div>
 
                 <!-- Subtitle / Roles -->
-                <p class="text-sm sm:text-base font-semibold text-slate-700 dark:text-slate-200 flex flex-wrap items-center gap-x-2 gap-y-1">
+                <p class="text-sm sm:text-base font-semibold text-[#B8B8BE] dark:text-slate-200 flex flex-wrap items-center gap-x-2 gap-y-1">
                     <span>Web Development</span>
-                    <span class="text-emerald-600 dark:text-emerald-400 font-bold">•</span>
+                    <span class="text-[#FF8C42] dark:text-emerald-400 font-bold">•</span>
                     <span>Graphic Design</span>
-                    <span class="text-emerald-600 dark:text-emerald-400 font-bold">•</span>
+                    <span class="text-[#FF8C42] dark:text-emerald-400 font-bold">•</span>
                     <span>UI/UX Design</span>
                 </p>
 
                 <!-- Pitch Description -->
-                <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-xl leading-relaxed">
+                <p class="text-base sm:text-lg text-[#B8B8BE] dark:text-slate-300 max-w-xl leading-relaxed">
                     Siswa SMKN 1 Bangsri jurusan Pengembangan Perangkat Lunak dan Gim (PPLG) dengan keahlian dalam pengembangan website modern dan desain grafis kreatif.
                 </p>
 
@@ -66,7 +66,7 @@
                 <div class="flex flex-wrap items-center gap-4 pt-2 w-full sm:w-auto">
                     <a
                         href="#projects"
-                        class="w-full sm:w-auto inline-flex items-center justify-center px-7 py-3.5 rounded-xl bg-gradient-to-r from-[#022c22] via-[#064e3b] to-[#047857] hover:from-[#064e3b] hover:via-[#047857] hover:to-[#059669] text-white font-semibold text-sm shadow-lg shadow-emerald-950/25 hover:shadow-emerald-600/35 border border-emerald-500/30 transition-all duration-300 group">
+                        class="w-full sm:w-auto inline-flex items-center justify-center px-7 py-3.5 rounded-xl bg-gradient-to-r from-[#D4AF37] via-[#F1D27A] to-[#D4AF37] hover:from-[#F1D27A] hover:via-[#D4AF37] hover:to-[#FF8C42] text-[#0B0B0D] font-bold text-sm shadow-lg shadow-[rgba(212,175,55,0.25)] hover:shadow-[rgba(212,175,55,0.4)] border border-[#F1D27A] dark:bg-gradient-to-r dark:from-[#022c22] dark:via-[#064e3b] dark:to-[#047857] dark:hover:from-[#064e3b] dark:hover:via-[#047857] dark:hover:to-[#059669] dark:text-white dark:border-emerald-500/30 dark:shadow-emerald-950/25 transition-all duration-300 group">
                         <span>View Projects</span>
                         <svg class="w-4 h-4 ml-2 transform group-hover:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
@@ -77,9 +77,9 @@
                         href="{{ route('cv.download') }}"
                         download
                         data-turbo="false"
-                        class="w-full sm:w-auto inline-flex items-center justify-center px-7 py-3.5 rounded-xl bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-emerald-900/20 dark:border-emerald-500/30 hover:border-emerald-500 hover:bg-emerald-50/70 dark:hover:bg-slate-800 text-emerald-950 dark:text-slate-100 font-semibold text-sm transition-all duration-200 shadow-sm group">
+                        class="w-full sm:w-auto inline-flex items-center justify-center px-7 py-3.5 rounded-xl bg-[#1C1C1F]/90 dark:bg-slate-900/90 backdrop-blur-md border border-[#D4AF37]/30 dark:border-emerald-500/30 hover:border-[#D4AF37] hover:bg-[#242428] dark:hover:bg-slate-800 text-[#F5F5F5] dark:text-slate-100 hover:text-[#F1D27A] dark:hover:text-emerald-300 font-semibold text-sm transition-all duration-200 shadow-sm group">
                         <span>Download CV</span>
-                        <svg class="w-4 h-4 ml-2 text-emerald-700 dark:text-emerald-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-300 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-4 h-4 ml-2 text-[#D4AF37] dark:text-emerald-400 group-hover:text-[#F1D27A] dark:group-hover:text-emerald-300 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
                         </svg>
                     </a>
@@ -91,12 +91,76 @@
                 <div class="relative w-full max-w-[440px] sm:max-w-[480px] flex items-center justify-center">
 
                     <!-- Layer 1: Multi-layered Dynamic Ambient Glow Shadows -->
-                    <div class="absolute -inset-6 bg-gradient-to-tr from-emerald-600/35 via-teal-400/25 to-[#022c22]/35 rounded-full blur-[80px] pointer-events-none animate-pulse-slow"></div>
-                    <div class="absolute top-1/4 -right-10 w-64 h-64 bg-emerald-400/30 dark:bg-emerald-400/40 rounded-full blur-[65px] pointer-events-none"></div>
-                    <div class="absolute -bottom-6 -left-10 w-72 h-72 bg-[#064e3b]/35 dark:bg-emerald-500/35 rounded-full blur-[75px] pointer-events-none"></div>
+                    <div class="absolute -inset-6 bg-gradient-to-tr from-[#D4AF37]/30 via-[#FF8C42]/20 to-[#0B0B0D]/30 dark:from-emerald-600/35 dark:via-teal-400/25 dark:to-[#022c22]/35 rounded-full blur-[80px] pointer-events-none animate-pulse-slow"></div>
+                    <div class="absolute top-1/4 -right-10 w-64 h-64 bg-[#D4AF37]/25 dark:bg-emerald-400/40 rounded-full blur-[65px] pointer-events-none"></div>
+                    <div class="absolute -bottom-6 -left-10 w-72 h-72 bg-[#FF8C42]/20 dark:bg-emerald-500/35 rounded-full blur-[75px] pointer-events-none"></div>
 
-                    <!-- Layer 2: Custom Built 3D Disc & Curved Wing Elements in Luminous Deep Dark Green -->
-                    <div class="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
+                    <!-- Layer 2: Custom Built 3D Disc & Curved Wing Elements -->
+                    <!-- Light Mode (Luxury Black & Gold Disc) -->
+                    <div class="block dark:hidden absolute inset-0 flex items-center justify-center pointer-events-none select-none">
+                        <svg class="w-[118%] h-[118%] -translate-y-10 sm:-translate-y-12" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <radialGradient id="luxDiscGrad" cx="35%" cy="30%" r="70%">
+                                    <stop offset="0%" stop-color="#242428" />
+                                    <stop offset="35%" stop-color="#1C1C1F" />
+                                    <stop offset="70%" stop-color="#141416" />
+                                    <stop offset="100%" stop-color="#0B0B0D" />
+                                </radialGradient>
+                                <linearGradient id="luxRimGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#F1D27A" />
+                                    <stop offset="40%" stop-color="#D4AF37" />
+                                    <stop offset="80%" stop-color="#FF8C42" stop-opacity="0.6" />
+                                    <stop offset="100%" stop-color="#D4AF37" stop-opacity="0.1" />
+                                </linearGradient>
+                                <linearGradient id="luxWingGrad" x1="10%" y1="60%" x2="95%" y2="20%">
+                                    <stop offset="0%" stop-color="#141416" />
+                                    <stop offset="45%" stop-color="#242428" />
+                                    <stop offset="75%" stop-color="#D4AF37" stop-opacity="0.8" />
+                                    <stop offset="100%" stop-color="#F1D27A" />
+                                </linearGradient>
+                                <linearGradient id="luxWingStroke" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stop-color="#D4AF37" stop-opacity="0.3" />
+                                    <stop offset="60%" stop-color="#F1D27A" />
+                                    <stop offset="100%" stop-color="#FFF3D0" />
+                                </linearGradient>
+                                <filter id="goldGlowEffect" x="-30%" y="-30%" width="160%" height="160%">
+                                    <feGaussianBlur stdDeviation="7" result="blur" />
+                                    <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                                </filter>
+                            </defs>
+
+                            <!-- Lower Left Organic Curved Accent -->
+                            <path d="M 70 330 C 45 295 55 240 105 220 C 150 205 195 230 205 270 C 215 315 170 355 115 360 C 85 362 75 345 70 330 Z"
+                                fill="url(#luxDiscGrad)"
+                                opacity="0.95"
+                                filter="drop-shadow(0 15px 30px rgba(0, 0, 0, 0.7))" />
+
+                            <!-- Main 3D Tilted Circular Disc -->
+                            <ellipse cx="270" cy="235" rx="160" ry="160"
+                                fill="url(#luxDiscGrad)"
+                                stroke="url(#luxRimGrad)"
+                                stroke-width="2.5"
+                                filter="drop-shadow(0 20px 40px rgba(0, 0, 0, 0.8))" />
+
+                            <!-- Glowing Gold Arc Rim Light -->
+                            <path d="M 125 190 A 160 160 0 0 1 395 135"
+                                stroke="#D4AF37"
+                                stroke-width="3"
+                                stroke-linecap="round"
+                                opacity="0.9"
+                                filter="url(#goldGlowEffect)" />
+
+                            <!-- Right Curved Wing / Swoosh extending outward -->
+                            <path d="M 240 265 C 300 240 375 210 425 205 C 445 203 452 215 438 232 C 405 270 330 310 270 325 Z"
+                                fill="url(#luxWingGrad)"
+                                stroke="url(#luxWingStroke)"
+                                stroke-width="2"
+                                filter="drop-shadow(0 12px 25px rgba(212, 175, 55, 0.4))" />
+                        </svg>
+                    </div>
+
+                    <!-- Dark Mode (Preserved Original Emerald Disc) -->
+                    <div class="hidden dark:block absolute inset-0 flex items-center justify-center pointer-events-none select-none">
                         <svg class="w-[118%] h-[118%] -translate-y-10 sm:-translate-y-12" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <defs>
                                 <radialGradient id="customDiscGrad" cx="35%" cy="30%" r="70%">
@@ -164,7 +228,7 @@
                         <img
                             src="{{ asset('images/reyno-real-cutout.png') }}?v={{ file_exists(public_path('images/reyno-real-cutout.png')) ? filemtime(public_path('images/reyno-real-cutout.png')) : 1 }}"
                             alt="Reyno Andrean Wijaksono - Developer"
-                            class="w-full h-auto max-h-[480px] sm:max-h-[520px] object-contain select-none transition-transform duration-500 hover:scale-[1.02] drop-shadow-[0_15px_30px_rgba(2,44,34,0.3)] dark:drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)]"
+                            class="w-full h-auto max-h-[480px] sm:max-h-[520px] object-contain select-none transition-transform duration-500 hover:scale-[1.02] drop-shadow-[0_15px_30px_rgba(212,175,55,0.22)] dark:drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)]"
                             loading="eager">
                     </div>
 

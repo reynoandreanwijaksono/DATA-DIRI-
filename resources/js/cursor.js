@@ -23,7 +23,7 @@
     let lastMouse = { x: -1000, y: -1000 };
     let lastSpawnTime = 0;
 
-    const SPARK_COLORS = [
+    const DARK_SPARK_COLORS = [
         '#34d399', // bright emerald
         '#10b981', // emerald
         '#6ee7b7', // soft mint
@@ -34,13 +34,30 @@
         '#ffffff'  // white-hot core spark
     ];
 
+    const LUX_GOLD_SPARK_COLORS = [
+        '#D4AF37', // Primary Gold
+        '#F1D27A', // Soft Gold
+        '#FF8C42', // Orange Accent
+        '#FFAE42', // Warm Amber
+        '#E5C158', // Rich Gold
+        '#FF9F4A', // Vibrant Orange
+        '#FFF3D0', // Warm Pale Glow
+        '#ffffff'  // White-hot core spark
+    ];
+
+    function getSparkColors() {
+        const isDark = document.documentElement.classList.contains('dark');
+        return isDark ? DARK_SPARK_COLORS : LUX_GOLD_SPARK_COLORS;
+    }
+
     class Spark {
         constructor(x, y, vx, vy, isBurst = false) {
             this.x = x;
             this.y = y;
             this.vx = vx;
             this.vy = vy;
-            this.color = SPARK_COLORS[Math.floor(Math.random() * SPARK_COLORS.length)];
+            const colors = getSparkColors();
+            this.color = colors[Math.floor(Math.random() * colors.length)];
             // Varied sizes from tiny sharp sparks to glowing embers
             this.size = Math.random() * 2.8 + (isBurst ? 1.6 : 1.0);
             this.initialSize = this.size;
@@ -110,7 +127,8 @@
             this.size = Math.random() * 2.2 + 0.8;
             this.baseAlpha = Math.random() * 0.45 + 0.15;
             this.alpha = this.baseAlpha;
-            this.color = SPARK_COLORS[Math.floor(Math.random() * 6)];
+            const colors = getSparkColors();
+            this.color = colors[Math.floor(Math.random() * (colors.length - 1))];
             this.pulseSpeed = Math.random() * 0.03 + 0.01;
             this.pulseAngle = Math.random() * Math.PI * 2;
         }

@@ -6,28 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ $title ?? 'Reyno Andrean Wijaksono — Web Development & Graphic Design' }}</title>
-    <meta name="description" content="{{ $description ?? 'Portfolio pribadi Reyno Andrean Wijaksono, siswa SMKN 1 Bangsri (PPLG) yang berfokus pada Web Development dan Graphic Design.' }}">
-    <meta name="keywords" content="Reyno Andrean Wijaksono, Web Development, Graphic Design, Laravel, PHP, MySQL, Tailwind CSS, Figma, Canva, SMKN 1 Bangsri, PPLG">
+    <title>{{ $title ?? 'Reyno Andrean Wijaksono — Front-End & Full-Stack Developer' }}</title>
+    <meta name="description" content="{{ $description ?? 'Personal portfolio of Reyno Andrean Wijaksono, a developer focused on modern web development, Laravel, frontend engineering, and UI/UX.' }}">
+    <meta name="keywords" content="Reyno Andrean Wijaksono, Frontend Developer, Full-Stack Developer, Laravel, Livewire, Tailwind CSS, UI/UX, Portfolio">
     <meta name="author" content="Reyno Andrean Wijaksono">
     <link rel="canonical" href="{{ url()->current() }}">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:title" content="{{ $title ?? 'Reyno Andrean Wijaksono — Web Development & Graphic Design' }}">
-    <meta property="og:description" content="{{ $description ?? 'Portfolio pribadi Reyno Andrean Wijaksono, siswa SMKN 1 Bangsri (PPLG) yang berfokus pada Web Development dan Graphic Design.' }}">
+    <meta property="og:title" content="{{ $title ?? 'Reyno Andrean Wijaksono — Front-End & Full-Stack Developer' }}">
+    <meta property="og:description" content="{{ $description ?? 'Personal portfolio of Reyno Andrean Wijaksono, a developer focused on modern web development, Laravel, frontend engineering, and UI/UX.' }}">
     <meta property="og:image" content="{{ asset('images/profile.jpg') }}">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="{{ url()->current() }}">
-    <meta property="twitter:title" content="{{ $title ?? 'Reyno Andrean Wijaksono — Web Development & Graphic Design' }}">
-    <meta property="twitter:description" content="{{ $description ?? 'Portfolio pribadi Reyno Andrean Wijaksono, siswa SMKN 1 Bangsri (PPLG) yang berfokus pada Web Development dan Graphic Design.' }}">
+    <meta property="twitter:title" content="{{ $title ?? 'Reyno Andrean Wijaksono — Front-End & Full-Stack Developer' }}">
+    <meta property="twitter:description" content="{{ $description ?? 'Personal portfolio of Reyno Andrean Wijaksono, a developer focused on modern web development, Laravel, frontend engineering, and UI/UX.' }}">
     <meta property="twitter:image" content="{{ asset('images/profile.jpg') }}">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%230057D9'/><text x='50%' y='55%' dominant-baseline='central' text-anchor='middle' font-family='sans-serif' font-weight='800' font-size='46' fill='white'>RA.</text></svg>">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%230B0B0D'/><text x='48%' y='55%' dominant-baseline='central' text-anchor='middle' font-family='sans-serif' font-weight='800' font-size='42' fill='%23F5F5F5'>RA<tspan fill='%23D4AF37'>.</tspan></text></svg>">
 
     <!-- Fonts: Plus Jakarta Sans & Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -57,7 +57,7 @@
     @livewireStyles
 </head>
 
-<body class="bg-[#F8F9FC] dark:bg-[#051022] text-slate-900 dark:text-slate-100 font-sans antialiased selection:bg-blue-600 selection:text-white transition-colors duration-300 min-h-screen flex flex-col">
+<body class="bg-[#0B0B0D] dark:bg-[#051022] text-[#F5F5F5] dark:text-slate-100 font-sans antialiased selection:bg-[#D4AF37] selection:text-[#0B0B0D] dark:selection:bg-emerald-900 dark:selection:text-emerald-100 transition-colors duration-300 min-h-screen flex flex-col">
 
     <!-- Navbar Component -->
     <x-navbar />
@@ -72,34 +72,127 @@
 
     @livewireScripts
 
-    <!-- Turbo & Navigation Lifecycle Handler -->
+    <!-- Turbo & Navigation Lifecycle Handler with Liquid Glass Transitions -->
     <script>
         (function() {
             let activeScrollListener = null;
+            let currentActiveLink = null;
+            let isHovering = false;
 
-            function initScrollSpy() {
+            function moveLiquidPillTo(linkEl, isInstant = false) {
+                const pill = document.getElementById('liquid-nav-pill');
+                const container = document.getElementById('desktop-nav-container');
+                if (!pill || !container || !linkEl) return;
+
+                const linkRect = linkEl.getBoundingClientRect();
+                const containerRect = container.getBoundingClientRect();
+
+                // 3D bulbous droplet padding extending slightly outside the track
+                const xPad = 8;
+                const yPad = 6;
+                const left = (linkRect.left - containerRect.left) - (xPad / 2);
+                const top = (linkRect.top - containerRect.top) - (yPad / 2);
+                const width = linkRect.width + xPad;
+                const height = linkRect.height + yPad;
+
+                if (isInstant) {
+                    pill.style.transition = 'none';
+                    pill.classList.remove('liquid-moving', 'liquid-settling');
+                } else {
+                    pill.classList.remove('liquid-settling');
+                    pill.classList.add('liquid-moving');
+                    clearTimeout(pill._moveTimeout);
+                    pill._moveTimeout = setTimeout(() => {
+                        pill.classList.remove('liquid-moving');
+                        pill.classList.add('liquid-settling');
+                        setTimeout(() => pill.classList.remove('liquid-settling'), 450);
+                    }, 440);
+                }
+
+                pill.style.left = `${left}px`;
+                pill.style.top = `${top}px`;
+                pill.style.width = `${width}px`;
+                pill.style.height = `${height}px`;
+                pill.style.opacity = '1';
+            }
+
+            function initLiquidNav() {
                 const sections = document.querySelectorAll('section[id]');
-                const navLinks = document.querySelectorAll('.nav-link');
-                if (!sections.length || !navLinks.length) return;
+                const navLinks = document.querySelectorAll('#desktop-nav-container .nav-link');
+                const container = document.getElementById('desktop-nav-container');
+                if (!navLinks.length) return;
 
                 function highlightNav() {
                     const scrollY = window.pageYOffset;
+                    let foundSection = null;
+
                     sections.forEach(current => {
                         const sectionHeight = current.offsetHeight;
-                        const sectionTop = current.offsetTop - 120;
-                        const sectionId = current.getAttribute('id');
+                        const sectionTop = current.offsetTop - 130;
+                        if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+                            foundSection = current.getAttribute('id');
+                        }
+                    });
 
-                        if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-                            navLinks.forEach(link => {
-                                const href = link.getAttribute('href') || '';
-                                if (href === `#${sectionId}` || (href === '/' && sectionId === 'home') || href.endsWith(`#${sectionId}`)) {
-                                    link.classList.add('text-blue-600', 'dark:text-blue-400', 'font-semibold');
-                                    link.classList.remove('text-slate-600', 'dark:text-slate-300');
-                                } else if (href.includes('#')) {
-                                    link.classList.remove('text-blue-600', 'dark:text-blue-400', 'font-semibold');
-                                    link.classList.add('text-slate-600', 'dark:text-slate-300');
+                    // Default to first section when near the top
+                    if (!foundSection && scrollY < 200 && sections.length > 0) {
+                        foundSection = sections[0].getAttribute('id');
+                    }
+
+                    if (foundSection) {
+                        navLinks.forEach(link => {
+                            const href = link.getAttribute('href') || '';
+                            if (href === `#${foundSection}` || (href === '/' && foundSection === 'home') || href.endsWith(`#${foundSection}`)) {
+                                link.classList.add('text-[#D4AF37]', 'dark:text-emerald-300', 'font-bold');
+                                link.classList.remove('text-[#B8B8BE]', 'dark:text-slate-300');
+                                currentActiveLink = link;
+                                if (!isHovering) {
+                                    moveLiquidPillTo(link);
                                 }
-                            });
+                            } else if (href.includes('#')) {
+                                link.classList.remove('text-[#D4AF37]', 'dark:text-emerald-300', 'font-bold');
+                                link.classList.add('text-[#B8B8BE]', 'dark:text-slate-300');
+                            }
+                        });
+                    }
+                }
+
+                // Attach interactive hover & click listeners for liquid transition ("saat berpindah")
+                navLinks.forEach(link => {
+                    link.addEventListener('mouseenter', () => {
+                        isHovering = true;
+                        moveLiquidPillTo(link, false);
+                    });
+
+                    link.addEventListener('click', (e) => {
+                        // Liquid ripple burst on click
+                        const rect = link.getBoundingClientRect();
+                        const ripple = document.createElement('span');
+                        ripple.className = 'liquid-click-ripple';
+                        const size = Math.max(rect.width, rect.height) * 1.8;
+                        ripple.style.width = `${size}px`;
+                        ripple.style.height = `${size}px`;
+                        ripple.style.left = `${e.clientX - rect.left}px`;
+                        ripple.style.top = `${e.clientY - rect.top}px`;
+                        link.appendChild(ripple);
+                        setTimeout(() => ripple.remove(), 600);
+
+                        currentActiveLink = link;
+                        navLinks.forEach(l => {
+                            l.classList.remove('text-[#D4AF37]', 'dark:text-emerald-300', 'font-bold');
+                            l.classList.add('text-[#B8B8BE]', 'dark:text-slate-300');
+                        });
+                        link.classList.add('text-[#D4AF37]', 'dark:text-emerald-300', 'font-bold');
+                        link.classList.remove('text-[#B8B8BE]', 'dark:text-slate-300');
+                        moveLiquidPillTo(link, false);
+                    });
+                });
+
+                if (container) {
+                    container.addEventListener('mouseleave', () => {
+                        isHovering = false;
+                        if (currentActiveLink) {
+                            moveLiquidPillTo(currentActiveLink, false);
                         }
                     });
                 }
@@ -111,12 +204,25 @@
                 window.addEventListener('scroll', highlightNav, {
                     passive: true
                 });
-                highlightNav();
+                window.addEventListener('resize', () => {
+                    if (currentActiveLink) moveLiquidPillTo(currentActiveLink, true);
+                }, {
+                    passive: true
+                });
+
+                // Initial position after render
+                setTimeout(() => {
+                    highlightNav();
+                    if (!currentActiveLink && navLinks.length > 0) {
+                        currentActiveLink = navLinks[0];
+                        moveLiquidPillTo(navLinks[0], true);
+                    }
+                }, 100);
             }
 
             // Runs on initial page load and every subsequent Turbo Drive visit
             document.addEventListener('turbo:load', () => {
-                initScrollSpy();
+                initLiquidNav();
 
                 // Reconnect Livewire if present
                 if (window.Livewire && typeof window.Livewire.rescan === 'function') {
